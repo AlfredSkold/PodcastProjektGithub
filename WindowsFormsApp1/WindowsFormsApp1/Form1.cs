@@ -21,15 +21,7 @@ namespace WindowsFormsApp1
         {
 
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button_exit_click_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        
+        
     }
 }
