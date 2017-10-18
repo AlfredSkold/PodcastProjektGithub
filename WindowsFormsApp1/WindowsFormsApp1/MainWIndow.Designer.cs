@@ -45,9 +45,9 @@
             this.comboBox6 = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.cbKategori = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.button7 = new System.Windows.Forms.Button();
+            this.laggTillPodcast = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -57,13 +57,13 @@
             this.button2 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tbNyKategori = new System.Windows.Forms.TextBox();
+            this.tbPodNamn = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cbValjIntervall = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbURL = new System.Windows.Forms.TextBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -215,13 +215,13 @@
             this.textBox4.Size = new System.Drawing.Size(152, 20);
             this.textBox4.TabIndex = 70;
             // 
-            // comboBox2
+            // cbKategori
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(490, 154);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(152, 21);
-            this.comboBox2.TabIndex = 69;
+            this.cbKategori.FormattingEnabled = true;
+            this.cbKategori.Location = new System.Drawing.Point(490, 154);
+            this.cbKategori.Name = "cbKategori";
+            this.cbKategori.Size = new System.Drawing.Size(152, 21);
+            this.cbKategori.TabIndex = 69;
             // 
             // label9
             // 
@@ -233,14 +233,15 @@
             this.label9.TabIndex = 68;
             this.label9.Text = "Eller lägg till ny kategori";
             // 
-            // button7
+            // laggTillPodcast
             // 
-            this.button7.Location = new System.Drawing.Point(490, 235);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(114, 23);
-            this.button7.TabIndex = 67;
-            this.button7.Text = "Lägg till podcast";
-            this.button7.UseVisualStyleBackColor = true;
+            this.laggTillPodcast.Location = new System.Drawing.Point(490, 235);
+            this.laggTillPodcast.Name = "laggTillPodcast";
+            this.laggTillPodcast.Size = new System.Drawing.Size(114, 23);
+            this.laggTillPodcast.TabIndex = 67;
+            this.laggTillPodcast.Text = "Lägg till podcast";
+            this.laggTillPodcast.UseVisualStyleBackColor = true;
+            this.laggTillPodcast.Click += new System.EventHandler(this.laggTillPodcast_Click);
             // 
             // label7
             // 
@@ -323,19 +324,19 @@
             this.label4.TabIndex = 58;
             this.label4.Text = "Välj kategori";
             // 
-            // textBox3
+            // tbNyKategori
             // 
-            this.textBox3.Location = new System.Drawing.Point(490, 209);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(152, 20);
-            this.textBox3.TabIndex = 57;
+            this.tbNyKategori.Location = new System.Drawing.Point(490, 209);
+            this.tbNyKategori.Name = "tbNyKategori";
+            this.tbNyKategori.Size = new System.Drawing.Size(152, 20);
+            this.tbNyKategori.TabIndex = 57;
             // 
-            // textBox2
+            // tbPodNamn
             // 
-            this.textBox2.Location = new System.Drawing.Point(490, 87);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(152, 20);
-            this.textBox2.TabIndex = 56;
+            this.tbPodNamn.Location = new System.Drawing.Point(490, 87);
+            this.tbPodNamn.Name = "tbPodNamn";
+            this.tbPodNamn.Size = new System.Drawing.Size(152, 20);
+            this.tbPodNamn.TabIndex = 56;
             // 
             // label3
             // 
@@ -355,13 +356,13 @@
             this.label2.TabIndex = 54;
             this.label2.Text = "Välj uppdateringsintervall";
             // 
-            // comboBox1
+            // cbValjIntervall
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(490, 113);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(152, 21);
-            this.comboBox1.TabIndex = 53;
+            this.cbValjIntervall.FormattingEnabled = true;
+            this.cbValjIntervall.Location = new System.Drawing.Point(490, 113);
+            this.cbValjIntervall.Name = "cbValjIntervall";
+            this.cbValjIntervall.Size = new System.Drawing.Size(152, 21);
+            this.cbValjIntervall.TabIndex = 53;
             // 
             // label1
             // 
@@ -372,12 +373,12 @@
             this.label1.TabIndex = 52;
             this.label1.Text = "URL";
             // 
-            // textBox1
+            // tbURL
             // 
-            this.textBox1.Location = new System.Drawing.Point(490, 61);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(152, 20);
-            this.textBox1.TabIndex = 51;
+            this.tbURL.Location = new System.Drawing.Point(490, 61);
+            this.tbURL.Name = "tbURL";
+            this.tbURL.Size = new System.Drawing.Size(152, 20);
+            this.tbURL.TabIndex = 51;
             // 
             // richTextBox1
             // 
@@ -397,7 +398,7 @@
             this.button1.Text = "Play";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // MainWIndow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -420,9 +421,9 @@
             this.Controls.Add(this.comboBox6);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.cbKategori);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.button7);
+            this.Controls.Add(this.laggTillPodcast);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.comboBox4);
             this.Controls.Add(this.label6);
@@ -432,15 +433,15 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.tbNyKategori);
+            this.Controls.Add(this.tbPodNamn);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cbValjIntervall);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.tbURL);
             this.Controls.Add(this.richTextBox1);
-            this.Name = "Form1";
+            this.Name = "MainWIndow";
             this.Text = "Podcast viewer";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
@@ -467,9 +468,9 @@
         private System.Windows.Forms.ComboBox comboBox6;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox cbKategori;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button laggTillPodcast;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox comboBox4;
         private System.Windows.Forms.Label label6;
@@ -479,13 +480,13 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox tbNyKategori;
+        private System.Windows.Forms.TextBox tbPodNamn;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbValjIntervall;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbURL;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button button1;
     }
