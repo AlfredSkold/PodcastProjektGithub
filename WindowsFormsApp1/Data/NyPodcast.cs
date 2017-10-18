@@ -10,56 +10,73 @@ namespace Data
 {
     public class NyPodcast
     {
-        public void addPod(String URL, String namn, String intervall, String kategori)
+        public void addPod(bool nyKategori, String URL, String namn, String intervall, String kategori)
         {
-            var databas = "C:\\Users\\alfre\\Desktop\\Visual Studios\\Projekt\\PodcastProjektGithub\\WindowsFormsApp1\\Data\\Databas.xml";
+            string path = Directory.GetCurrentDirectory() + @"\" + kategori + @"\" + namn + @".xml";
+            Console.WriteLine(path);
+            rss rssVar = new rss();
+            XmlDocument doc = rssVar.hamtaXML(URL);
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Indent = true;
+            settings.IndentChars = ("    ");
+            XmlWriter xmlOut = XmlWriter.Create(path, settings);
 
-            openXMLDoc(databas);
+            xmlOut.WriteStartDocument();
+            xmlOut.WriteStartElement("channel");
+            xmlOut.WriteElementString("interval", intervall);
+            xmlOut.WriteElementString("url", URL);
+            xmlOut.WriteElementString("lastSync", DateTime.Now.ToString());
+            int i = 0;
+            foreach(XmlNode item
+               in doc.DocumentElement.SelectNodes("channel/item"))
+            {
+                var title = item.SelectSingleNode("title");
+                var description = item.SelectSingleNode("description");
+                var enclosure = item.SelectSingleNode("enclosure/@url");
 
-            insertItems(databas, URL, namn, intervall, kategori);
+                xmlOut.WriteStartElement("item");
+
+                xmlOut.WriteAttributeString("ID", "pod" + i);
+
+                if (description.InnerText.Equals(""))
+                {
+                    xmlOut.WriteElementString("description", "Unfortunately, no description is available.");
+                }
+                else
+                {
+                    xmlOut.WriteElementString("description", description.InnerText);
+                }
+
+                xmlOut.WriteElementString("title", title.InnerText);
+                xmlOut.WriteElementString("enclosure", enclosure.InnerText);
+                xmlOut.WriteElementString("status", "Unlistened");
+
+                xmlOut.WriteEndElement();
+                i++;
+            }
+            xmlOut.WriteEndDocument();
+            xmlOut.Close();
+
+            if (nyKategori)
+                laggTillKategoriIListan(kategori);
         }
-        private void openXMLDoc(String databas)
+        private void laggTillKategoriIListan(string kategori)
         {
-            XmlTextWriter xtw;
-            xtw = new XmlTextWriter(databas, Encoding.UTF8);
-            xtw.WriteStartDocument();
-            xtw.WriteStartElement("Podcasts");
-            xtw.WriteEndElement();
-            xtw.Close();
+            string path = Directory.GetCurrentDirectory() + @"\KategoriNamn.xml";
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Indent = true;
+            settings.IndentChars = ("    ");
+            XmlWriter xmlOut = XmlWriter.Create(path, settings);
+
+
+            xmlOut.WriteStartDocument();
+            xmlOut.WriteStartElement("Kategorier");
+            xmlOut.WriteElementString("Namn", kategori);
+
+            xmlOut.WriteEndDocument();
+            xmlOut.Close();
         }
 
-        private void insertItems(String databas, String URL, String namn, String intervall, String kategori)
-        {
-           
-            XmlDocument xd = new XmlDocument();
-            FileStream lfile = new FileStream(databas, FileMode.Open);
-            xd.Load(lfile);
-
-            XmlElement cl = xd.CreateElement("Podcast");
-            cl.SetAttribute("Name", namn);
-
-            XmlElement naUrl = xd.CreateElement("Url");
-            XmlText naUrlText = xd.CreateTextNode(URL);
-            XmlElement naNamn = xd.CreateElement("namn");
-            XmlText naNamntext = xd.CreateTextNode(namn);
-            XmlElement naIntervall = xd.CreateElement("Intervall");
-            XmlText naIntervallText = xd.CreateTextNode(intervall);
-            XmlElement naKategori = xd.CreateElement("Kategori");
-            XmlText naKategoriText = xd.CreateTextNode(kategori);
-
-            naUrl.AppendChild(naUrlText);
-            cl.AppendChild(naUrl);
-            naNamn.AppendChild(naNamntext);
-            cl.AppendChild(naNamn);
-            naIntervall.AppendChild(naIntervallText);
-            cl.AppendChild(naIntervall);
-            naKategori.AppendChild(naKategoriText);
-            cl.AppendChild(naKategori);
-
-            xd.DocumentElement.AppendChild(cl);
-
-            lfile.Close();
-            xd.Save(databas);
-        }
+       
     }
 }

@@ -48,5 +48,8 @@
   <ItemGroup>
     <Content Include="Databas.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Kategori\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -49,7 +49,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.laggTillPodcast = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.cbValjEnKategori = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.button5 = new System.Windows.Forms.Button();
@@ -253,13 +253,13 @@
             this.label7.TabIndex = 66;
             this.label7.Text = "Välj en podcast";
             // 
-            // comboBox4
+            // cbValjEnKategori
             // 
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(34, 45);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(147, 21);
-            this.comboBox4.TabIndex = 65;
+            this.cbValjEnKategori.FormattingEnabled = true;
+            this.cbValjEnKategori.Location = new System.Drawing.Point(34, 45);
+            this.cbValjEnKategori.Name = "cbValjEnKategori";
+            this.cbValjEnKategori.Size = new System.Drawing.Size(147, 21);
+            this.cbValjEnKategori.TabIndex = 65;
             // 
             // label6
             // 
@@ -425,7 +425,7 @@
             this.Controls.Add(this.label9);
             this.Controls.Add(this.laggTillPodcast);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.comboBox4);
+            this.Controls.Add(this.cbValjEnKategori);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.comboBox3);
             this.Controls.Add(this.button5);
@@ -472,7 +472,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button laggTillPodcast;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.ComboBox cbValjEnKategori;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.Button button5;
