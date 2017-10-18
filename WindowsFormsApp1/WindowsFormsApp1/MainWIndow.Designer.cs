@@ -35,7 +35,7 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.rtbAvsnitt = new System.Windows.Forms.RichTextBox();
             this.button8 = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
             this.textBox6 = new System.Windows.Forms.TextBox();
@@ -51,7 +51,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.cbValjEnKategori = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.valjEnPodcast = new System.Windows.Forms.ComboBox();
             this.button5 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -64,8 +64,10 @@
             this.cbValjIntervall = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tbURL = new System.Windows.Forms.TextBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.rtbPodcasts = new System.Windows.Forms.RichTextBox();
+            this.btnPlay = new System.Windows.Forms.Button();
+            this.richTextBox3 = new System.Windows.Forms.RichTextBox();
+            this.btnMerInfo = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label8
@@ -126,19 +128,19 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(261, 80);
+            this.label10.Location = new System.Drawing.Point(259, 80);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(39, 13);
             this.label10.TabIndex = 81;
             this.label10.Text = "Avsnitt";
             // 
-            // richTextBox2
+            // rtbAvsnitt
             // 
-            this.richTextBox2.Location = new System.Drawing.Point(209, 96);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(147, 351);
-            this.richTextBox2.TabIndex = 79;
-            this.richTextBox2.Text = "";
+            this.rtbAvsnitt.Location = new System.Drawing.Point(209, 96);
+            this.rtbAvsnitt.Name = "rtbAvsnitt";
+            this.rtbAvsnitt.Size = new System.Drawing.Size(147, 351);
+            this.rtbAvsnitt.TabIndex = 79;
+            this.rtbAvsnitt.Text = "";
             // 
             // button8
             // 
@@ -271,13 +273,13 @@
             this.label6.TabIndex = 64;
             this.label6.Text = "Ändra en kategori";
             // 
-            // comboBox3
+            // valjEnPodcast
             // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(209, 45);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(147, 21);
-            this.comboBox3.TabIndex = 63;
+            this.valjEnPodcast.FormattingEnabled = true;
+            this.valjEnPodcast.Location = new System.Drawing.Point(209, 45);
+            this.valjEnPodcast.Name = "valjEnPodcast";
+            this.valjEnPodcast.Size = new System.Drawing.Size(147, 21);
+            this.valjEnPodcast.TabIndex = 63;
             // 
             // button5
             // 
@@ -380,30 +382,49 @@
             this.tbURL.Size = new System.Drawing.Size(152, 20);
             this.tbURL.TabIndex = 51;
             // 
-            // richTextBox1
+            // rtbPodcasts
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(34, 96);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(147, 351);
-            this.richTextBox1.TabIndex = 50;
-            this.richTextBox1.Text = "";
+            this.rtbPodcasts.Location = new System.Drawing.Point(34, 96);
+            this.rtbPodcasts.Name = "rtbPodcasts";
+            this.rtbPodcasts.Size = new System.Drawing.Size(147, 351);
+            this.rtbPodcasts.TabIndex = 50;
+            this.rtbPodcasts.Text = "";
             // 
-            // button1
+            // btnPlay
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(415, 328);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(132, 85);
-            this.button1.TabIndex = 88;
-            this.button1.Text = "Play";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnPlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPlay.Location = new System.Drawing.Point(363, 279);
+            this.btnPlay.Name = "btnPlay";
+            this.btnPlay.Size = new System.Drawing.Size(132, 85);
+            this.btnPlay.TabIndex = 88;
+            this.btnPlay.Text = "Play";
+            this.btnPlay.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox3
+            // 
+            this.richTextBox3.Location = new System.Drawing.Point(516, 279);
+            this.richTextBox3.Name = "richTextBox3";
+            this.richTextBox3.Size = new System.Drawing.Size(207, 148);
+            this.richTextBox3.TabIndex = 89;
+            this.richTextBox3.Text = "";
+            // 
+            // btnMerInfo
+            // 
+            this.btnMerInfo.Location = new System.Drawing.Point(370, 370);
+            this.btnMerInfo.Name = "btnMerInfo";
+            this.btnMerInfo.Size = new System.Drawing.Size(114, 23);
+            this.btnMerInfo.TabIndex = 90;
+            this.btnMerInfo.Text = "Mer info";
+            this.btnMerInfo.UseVisualStyleBackColor = true;
             // 
             // MainWIndow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(972, 472);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnMerInfo);
+            this.Controls.Add(this.richTextBox3);
+            this.Controls.Add(this.btnPlay);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.comboBox8);
             this.Controls.Add(this.label19);
@@ -411,7 +432,7 @@
             this.Controls.Add(this.label18);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.richTextBox2);
+            this.Controls.Add(this.rtbAvsnitt);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.textBox6);
@@ -427,7 +448,7 @@
             this.Controls.Add(this.label7);
             this.Controls.Add(this.cbValjEnKategori);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.comboBox3);
+            this.Controls.Add(this.valjEnPodcast);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -440,7 +461,7 @@
             this.Controls.Add(this.cbValjIntervall);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbURL);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.rtbPodcasts);
             this.Name = "MainWIndow";
             this.Text = "Podcast viewer";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -458,7 +479,7 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.RichTextBox richTextBox2;
+        private System.Windows.Forms.RichTextBox rtbAvsnitt;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox textBox6;
@@ -474,7 +495,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cbValjEnKategori;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ComboBox valjEnPodcast;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
@@ -487,8 +508,10 @@
         private System.Windows.Forms.ComboBox cbValjIntervall;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbURL;
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.RichTextBox rtbPodcasts;
+        private System.Windows.Forms.Button btnPlay;
+        private System.Windows.Forms.RichTextBox richTextBox3;
+        private System.Windows.Forms.Button btnMerInfo;
     }
 }
 
