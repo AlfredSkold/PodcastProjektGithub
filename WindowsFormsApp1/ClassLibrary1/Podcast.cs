@@ -38,7 +38,7 @@ namespace Logic
             xtw.WriteStartElement("KategoriNamn");
             xtw.WriteEndElement();
             xtw.Close();
-
+            
             FileStream rfile = new FileStream(path, FileMode.Open);
             xdoc.Load(rfile);
             XmlNodeList list = xdoc.GetElementsByTagName("Kategorier");
