@@ -44,7 +44,7 @@ namespace Logic
 
         public static bool checkIfUrlExists (string url)
             {
-            if (url ==??)
+            if (url =="")
             {
                 MessageBox.Show("Url:en är redan tillagd");
                 return false;

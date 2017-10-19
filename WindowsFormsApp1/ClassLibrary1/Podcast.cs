@@ -13,43 +13,33 @@ namespace Logic
     {
         public void nyPod (bool nyKategori, String url, String namn, String intervall, String kategori)
         {
-            if(nyKategori)
-            {
-                String path = @"\" + Directory.GetCurrentDirectory() + kategori;
-                Directory.CreateDirectory(kategori);
-            }
             NyPodcast podcast = new NyPodcast();
             podcast.addPod(nyKategori, url, namn, intervall, kategori);
         }
 
-        public void hamtaAvsnitt (String url)
+        public List<string> hamtaAvsnitt (String podcast, string kategori)
         {
+            List<string> allaAvsnitt = new List<string>();
+            XmlDocument xm = new XmlDocument();
+            string list = "//title";
 
+            string path = Directory.GetCurrentDirectory() + @"\" + kategori + @"\" + podcast + @".xml";
+
+            xm.Load(path);
+            XmlNodeList Xn = xm.SelectNodes(list);
+
+            foreach (XmlNode xNode in Xn)
+            {
+                allaAvsnitt.Add(xNode.InnerText);
+            }
+            return allaAvsnitt;
         }
 
-        public List<string> listaMedKategoriNamn()
+        public string[] listaMedKategoriNamn()
         {
-            List<string> namn = new List<string>();
-            String path = Directory.GetCurrentDirectory() + @"\KategoriNamn.xml";
-            XmlTextWriter xtw;
-            xtw = new XmlTextWriter(path, Encoding.UTF8);
-            XmlDocument xdoc = new XmlDocument();
-            xtw.WriteStartDocument();
-            xtw.WriteStartElement("KategoriNamn");
-            xtw.WriteEndElement();
-            xtw.Close();
-            
-            FileStream rfile = new FileStream(path, FileMode.Open);
-            xdoc.Load(rfile);
-            XmlNodeList list = xdoc.GetElementsByTagName("Kategorier");
-            for (int i = 0; i < list.Count; i++)
-            {
-                XmlElement add = (XmlElement)xdoc.GetElementsByTagName("Namn")[i];
-                    namn.Add(add.InnerText);
-            }
-            rfile.Close();
-
-            return namn;
+            String path = Directory.GetCurrentDirectory();
+            string[] kategoriLista = Directory.GetDirectories(path);
+            return kategoriLista;
 
         }
 
@@ -60,7 +50,6 @@ namespace Logic
             return filNamn;
 
         }
-
 
     }
 }

@@ -17,7 +17,9 @@ namespace WindowsFormsApp1
         public MainWIndow()
         {
             InitializeComponent();
+            Directory.SetCurrentDirectory(Directory.GetCurrentDirectory() + @"/Kategorier/");
             fyllComboBoxKategorier();
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -39,25 +41,26 @@ namespace WindowsFormsApp1
             }
             Podcast metod = new Podcast();
             metod.nyPod(nyKategori, url, namn, intervall, kategori);
-
-            metod.hamtaAvsnitt(url);
+            
         }
 
         public void fyllComboBoxKategorier()
         {
             Podcast lista = new Podcast();
-            List<string> listaKategorier = lista.listaMedKategoriNamn();
-            cbValjEnKategori.Items.Add("");
-            cbKategori.Items.Add("");
-            foreach (string element in listaKategorier)
+            string[] listaKategorier = lista.listaMedKategoriNamn();
+
+            for (int i = 0; i < listaKategorier.Length; i++)
             {
-                cbValjEnKategori.Items.Add(element);
-                cbKategori.Items.Add(element);
+                string kategoriNamn = new FileInfo(listaKategorier[i]).Name;
+
+                cbKategori.Items.Add(kategoriNamn);
+                cbValjEnKategori.Items.Add(kategoriNamn);
             }
         }
 
         public void fyllComboBoxPodcasts()
         {
+            
             var kategori = cbValjEnKategori.Text;
             Podcast lista = new Podcast();
             string[] listaPodcasts = lista.listaFranEnKategori(kategori);
@@ -72,7 +75,22 @@ namespace WindowsFormsApp1
 
         private void cbValjEnKategori_SelectedIndexChanged(object sender, EventArgs e)
         {
+            this.cbValjEnPodcast.Items.Clear();
             fyllComboBoxPodcasts();
+
+        }
+
+        private void cbValjEnPodcast_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var kategori = cbValjEnKategori.Text;
+            var podcast = cbValjEnPodcast.Text;
+            Podcast enPodcast = new Podcast();
+
+            List<string> allaAvsnitt = enPodcast.hamtaAvsnitt(podcast, kategori);
+            foreach (var avsnitt in allaAvsnitt)
+            {
+                clbAvsnitt.Items.Add(avsnitt);
+            }
         }
     }
 }

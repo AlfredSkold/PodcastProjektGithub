@@ -62,10 +62,10 @@
             this.cbValjIntervall = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tbURL = new System.Windows.Forms.TextBox();
-            this.rtbPodcasts = new System.Windows.Forms.RichTextBox();
             this.btnPlay = new System.Windows.Forms.Button();
             this.richTextBox3 = new System.Windows.Forms.RichTextBox();
             this.btnMerInfo = new System.Windows.Forms.Button();
+            this.clbAvsnitt = new System.Windows.Forms.CheckedListBox();
             this.SuspendLayout();
             // 
             // label8
@@ -267,6 +267,7 @@
             this.cbValjEnPodcast.Name = "cbValjEnPodcast";
             this.cbValjEnPodcast.Size = new System.Drawing.Size(147, 21);
             this.cbValjEnPodcast.TabIndex = 63;
+            this.cbValjEnPodcast.SelectedIndexChanged += new System.EventHandler(this.cbValjEnPodcast_SelectedIndexChanged);
             // 
             // button5
             // 
@@ -370,14 +371,6 @@
             this.tbURL.Size = new System.Drawing.Size(152, 20);
             this.tbURL.TabIndex = 51;
             // 
-            // rtbPodcasts
-            // 
-            this.rtbPodcasts.Location = new System.Drawing.Point(34, 96);
-            this.rtbPodcasts.Name = "rtbPodcasts";
-            this.rtbPodcasts.Size = new System.Drawing.Size(147, 351);
-            this.rtbPodcasts.TabIndex = 50;
-            this.rtbPodcasts.Text = "";
-            // 
             // btnPlay
             // 
             this.btnPlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -405,11 +398,20 @@
             this.btnMerInfo.Text = "Mer info";
             this.btnMerInfo.UseVisualStyleBackColor = true;
             // 
+            // clbAvsnitt
+            // 
+            this.clbAvsnitt.FormattingEnabled = true;
+            this.clbAvsnitt.Location = new System.Drawing.Point(23, 96);
+            this.clbAvsnitt.Name = "clbAvsnitt";
+            this.clbAvsnitt.Size = new System.Drawing.Size(173, 349);
+            this.clbAvsnitt.TabIndex = 91;
+            // 
             // MainWIndow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(972, 472);
+            this.Controls.Add(this.clbAvsnitt);
             this.Controls.Add(this.btnMerInfo);
             this.Controls.Add(this.richTextBox3);
             this.Controls.Add(this.btnPlay);
@@ -447,7 +449,6 @@
             this.Controls.Add(this.cbValjIntervall);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbURL);
-            this.Controls.Add(this.rtbPodcasts);
             this.Name = "MainWIndow";
             this.Text = "Podcast viewer";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -492,10 +493,10 @@
         private System.Windows.Forms.ComboBox cbValjIntervall;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbURL;
-        private System.Windows.Forms.RichTextBox rtbPodcasts;
         private System.Windows.Forms.Button btnPlay;
         private System.Windows.Forms.RichTextBox richTextBox3;
         private System.Windows.Forms.Button btnMerInfo;
+        private System.Windows.Forms.CheckedListBox clbAvsnitt;
     }
 }
 
