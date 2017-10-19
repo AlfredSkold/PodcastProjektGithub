@@ -63,18 +63,36 @@ namespace Data
         private void laggTillKategoriIListan(string kategori)
         {
             string path = Directory.GetCurrentDirectory() + @"\KategoriNamn.xml";
+           
+            XmlDocument xdoc = new XmlDocument();
+
+            FileStream rfile = new FileStream(path, FileMode.Open);
+            xdoc.Load(rfile);
+            XmlNodeList list = xdoc.GetElementsByTagName("Kategorier");
+
+            List<string> namn = new List<string>();
+            foreach (XmlNode item in list)
+            {
+                namn.Add(item.InnerText);
+            }
+            namn.Add(kategori);
+            rfile.Close();
+            Console.WriteLine(namn);
+
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
             settings.IndentChars = ("    ");
             XmlWriter xmlOut = XmlWriter.Create(path, settings);
 
-
             xmlOut.WriteStartDocument();
             xmlOut.WriteStartElement("Kategorier");
-            xmlOut.WriteElementString("Namn", kategori);
-
+            foreach (var item in namn)
+            {
+                xmlOut.WriteElementString("Namn", item);
+            }
             xmlOut.WriteEndDocument();
             xmlOut.Close();
+
         }
 
        

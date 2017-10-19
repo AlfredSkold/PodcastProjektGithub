@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Logic;
+using System.IO;
 
 namespace WindowsFormsApp1
 {
@@ -16,7 +17,7 @@ namespace WindowsFormsApp1
         public MainWIndow()
         {
             InitializeComponent();
-            fyllComboBox();
+            fyllComboBoxKategorier();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -42,15 +43,36 @@ namespace WindowsFormsApp1
             metod.hamtaAvsnitt(url);
         }
 
-        public void fyllComboBox()
+        public void fyllComboBoxKategorier()
         {
             Podcast lista = new Podcast();
             List<string> listaKategorier = lista.listaMedKategoriNamn();
-            foreach(string element in listaKategorier)
+            cbValjEnKategori.Items.Add("");
+            cbKategori.Items.Add("");
+            foreach (string element in listaKategorier)
             {
                 cbValjEnKategori.Items.Add(element);
+                cbKategori.Items.Add(element);
             }
-            
+        }
+
+        public void fyllComboBoxPodcasts()
+        {
+            var kategori = cbValjEnKategori.Text;
+            Podcast lista = new Podcast();
+            string[] listaPodcasts = lista.listaFranEnKategori(kategori);
+
+            for (int i = 0; i < listaPodcasts.Length; i++)
+            {
+                string filNamn = new FileInfo(listaPodcasts[i]).Name.Replace(".xml", "");
+                
+                cbValjEnPodcast.Items.Add(filNamn);
+            }
+        }
+
+        private void cbValjEnKategori_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            fyllComboBoxPodcasts();
         }
     }
 }

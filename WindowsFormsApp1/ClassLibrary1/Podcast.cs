@@ -31,7 +31,13 @@ namespace Logic
         {
             List<string> namn = new List<string>();
             String path = Directory.GetCurrentDirectory() + @"\KategoriNamn.xml";
+            XmlTextWriter xtw;
+            xtw = new XmlTextWriter(path, Encoding.UTF8);
             XmlDocument xdoc = new XmlDocument();
+            xtw.WriteStartDocument();
+            xtw.WriteStartElement("KategoriNamn");
+            xtw.WriteEndElement();
+            xtw.Close();
 
             FileStream rfile = new FileStream(path, FileMode.Open);
             xdoc.Load(rfile);
@@ -44,6 +50,14 @@ namespace Logic
             rfile.Close();
 
             return namn;
+
+        }
+
+        public string[] listaFranEnKategori(string kategori)
+        {
+            String path = Directory.GetCurrentDirectory() + @"\" + kategori;
+            string[] filNamn = Directory.GetFiles(path);
+            return filNamn;
 
         }
 

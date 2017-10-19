@@ -30,12 +30,10 @@
         {
             this.label8 = new System.Windows.Forms.Label();
             this.comboBox8 = new System.Windows.Forms.ComboBox();
-            this.label19 = new System.Windows.Forms.Label();
             this.comboBox5 = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.rtbAvsnitt = new System.Windows.Forms.RichTextBox();
             this.button8 = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
             this.textBox6 = new System.Windows.Forms.TextBox();
@@ -51,7 +49,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.cbValjEnKategori = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.valjEnPodcast = new System.Windows.Forms.ComboBox();
+            this.cbValjEnPodcast = new System.Windows.Forms.ComboBox();
             this.button5 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -88,15 +86,6 @@
             this.comboBox8.Size = new System.Drawing.Size(147, 21);
             this.comboBox8.TabIndex = 86;
             // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(72, 80);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(51, 13);
-            this.label19.TabIndex = 85;
-            this.label19.Text = "Podcasts";
-            // 
             // comboBox5
             // 
             this.comboBox5.FormattingEnabled = true;
@@ -128,19 +117,11 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(259, 80);
+            this.label10.Location = new System.Drawing.Point(79, 80);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(39, 13);
             this.label10.TabIndex = 81;
             this.label10.Text = "Avsnitt";
-            // 
-            // rtbAvsnitt
-            // 
-            this.rtbAvsnitt.Location = new System.Drawing.Point(209, 96);
-            this.rtbAvsnitt.Name = "rtbAvsnitt";
-            this.rtbAvsnitt.Size = new System.Drawing.Size(147, 351);
-            this.rtbAvsnitt.TabIndex = 79;
-            this.rtbAvsnitt.Text = "";
             // 
             // button8
             // 
@@ -219,6 +200,7 @@
             // 
             // cbKategori
             // 
+            this.cbKategori.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbKategori.FormattingEnabled = true;
             this.cbKategori.Location = new System.Drawing.Point(490, 154);
             this.cbKategori.Name = "cbKategori";
@@ -229,11 +211,11 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(493, 190);
+            this.label9.Location = new System.Drawing.Point(487, 190);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(149, 16);
+            this.label9.Size = new System.Drawing.Size(173, 16);
             this.label9.TabIndex = 68;
-            this.label9.Text = "Eller lägg till ny kategori";
+            this.label9.Text = "Eller lägg till i en ny kategori";
             // 
             // laggTillPodcast
             // 
@@ -257,11 +239,15 @@
             // 
             // cbValjEnKategori
             // 
+            this.cbValjEnKategori.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbValjEnKategori.FormattingEnabled = true;
             this.cbValjEnKategori.Location = new System.Drawing.Point(34, 45);
+            this.cbValjEnKategori.MaxDropDownItems = 20;
             this.cbValjEnKategori.Name = "cbValjEnKategori";
             this.cbValjEnKategori.Size = new System.Drawing.Size(147, 21);
+            this.cbValjEnKategori.Sorted = true;
             this.cbValjEnKategori.TabIndex = 65;
+            this.cbValjEnKategori.SelectedIndexChanged += new System.EventHandler(this.cbValjEnKategori_SelectedIndexChanged);
             // 
             // label6
             // 
@@ -273,13 +259,14 @@
             this.label6.TabIndex = 64;
             this.label6.Text = "Ändra en kategori";
             // 
-            // valjEnPodcast
+            // cbValjEnPodcast
             // 
-            this.valjEnPodcast.FormattingEnabled = true;
-            this.valjEnPodcast.Location = new System.Drawing.Point(209, 45);
-            this.valjEnPodcast.Name = "valjEnPodcast";
-            this.valjEnPodcast.Size = new System.Drawing.Size(147, 21);
-            this.valjEnPodcast.TabIndex = 63;
+            this.cbValjEnPodcast.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbValjEnPodcast.FormattingEnabled = true;
+            this.cbValjEnPodcast.Location = new System.Drawing.Point(209, 45);
+            this.cbValjEnPodcast.Name = "cbValjEnPodcast";
+            this.cbValjEnPodcast.Size = new System.Drawing.Size(147, 21);
+            this.cbValjEnPodcast.TabIndex = 63;
             // 
             // button5
             // 
@@ -360,6 +347,7 @@
             // 
             // cbValjIntervall
             // 
+            this.cbValjIntervall.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbValjIntervall.FormattingEnabled = true;
             this.cbValjIntervall.Location = new System.Drawing.Point(490, 113);
             this.cbValjIntervall.Name = "cbValjIntervall";
@@ -393,7 +381,7 @@
             // btnPlay
             // 
             this.btnPlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPlay.Location = new System.Drawing.Point(363, 279);
+            this.btnPlay.Location = new System.Drawing.Point(209, 96);
             this.btnPlay.Name = "btnPlay";
             this.btnPlay.Size = new System.Drawing.Size(132, 85);
             this.btnPlay.TabIndex = 88;
@@ -402,15 +390,15 @@
             // 
             // richTextBox3
             // 
-            this.richTextBox3.Location = new System.Drawing.Point(516, 279);
+            this.richTextBox3.Location = new System.Drawing.Point(209, 265);
             this.richTextBox3.Name = "richTextBox3";
-            this.richTextBox3.Size = new System.Drawing.Size(207, 148);
+            this.richTextBox3.Size = new System.Drawing.Size(257, 148);
             this.richTextBox3.TabIndex = 89;
             this.richTextBox3.Text = "";
             // 
             // btnMerInfo
             // 
-            this.btnMerInfo.Location = new System.Drawing.Point(370, 370);
+            this.btnMerInfo.Location = new System.Drawing.Point(209, 235);
             this.btnMerInfo.Name = "btnMerInfo";
             this.btnMerInfo.Size = new System.Drawing.Size(114, 23);
             this.btnMerInfo.TabIndex = 90;
@@ -427,12 +415,10 @@
             this.Controls.Add(this.btnPlay);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.comboBox8);
-            this.Controls.Add(this.label19);
             this.Controls.Add(this.comboBox5);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.rtbAvsnitt);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.textBox6);
@@ -448,7 +434,7 @@
             this.Controls.Add(this.label7);
             this.Controls.Add(this.cbValjEnKategori);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.valjEnPodcast);
+            this.Controls.Add(this.cbValjEnPodcast);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -474,12 +460,10 @@
 
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox comboBox8;
-        private System.Windows.Forms.Label label19;
         private System.Windows.Forms.ComboBox comboBox5;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.RichTextBox rtbAvsnitt;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox textBox6;
@@ -495,7 +479,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cbValjEnKategori;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox valjEnPodcast;
+        private System.Windows.Forms.ComboBox cbValjEnPodcast;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
