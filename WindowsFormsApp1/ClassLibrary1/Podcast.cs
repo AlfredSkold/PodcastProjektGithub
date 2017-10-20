@@ -7,6 +7,7 @@ using Data;
 using System.IO;
 using System.Xml;
 
+
 namespace Logic
 {
     public class Podcast
@@ -60,6 +61,17 @@ namespace Logic
             return podUrl;
         }
 
+        public bool lyssnadPa(string kategori, string podcast, string avsnitt)
+        {
+            bool lyssnad = false;
+            PodcastData podcastDataElement = new PodcastData();
+            var hamtad = podcastDataElement.hamtaEttInnrePodcastItem(kategori, podcast, avsnitt, "status");
+            if(hamtad == "Listened")
+            {
+                lyssnad = true;
+            }
+            return lyssnad;
+        }
         public string hamtaPodcastIntervall(string kategori, string podcast)
         {
             PodcastData podcastsElm = new PodcastData();
@@ -100,11 +112,43 @@ namespace Logic
 
             PodcastData podcastDataElement = new PodcastData();
 
-            string podID = podcastDataElement.hamtaPodId(kategori, podcast, avsnitt).ToString();
-            podDesc = podcastDataElement.hamtaEttInnrePodcastItem(kategori, podcast, avsnitt, podID, "description");
+            
+            podDesc = podcastDataElement.hamtaEttInnrePodcastItem(kategori, podcast, avsnitt, "description");
 
 
             return podDesc;
+        }
+
+        public string hamtaLjudfil(string kategori, string podcast, string avsnitt)
+        {
+            PodcastData podcastDataElement = new PodcastData();
+            avsnittSpelad(kategori, podcast, avsnitt);
+            string ljudfilUrl = podcastDataElement.hamtaEttInnrePodcastItem(kategori, podcast, avsnitt, "enclosure");
+            var ljudfilPath = podcastDataElement.hamtaLjudfil(ljudfilUrl, kategori, podcast, avsnitt);
+            return ljudfilPath;
+        }
+
+        public void spelaLjudfil(string path)
+        {
+            System.Diagnostics.Process.Start(path);
+
+        }
+
+        public void avsnittSpelad(string kategori, string podcast, string avsnitt)
+        {
+            PodcastData podcastDataElement = new PodcastData();
+            podcastDataElement.andraInnrePodcastItem(kategori, podcast, avsnitt, "status", "Listened");
+        }
+
+        public bool arAvsnittSpelat(string kategori, string podcast, string avsnitt)
+        {
+            PodcastData podcastDataElement = new PodcastData();
+            bool spelad = false;
+            if (podcastDataElement.hamtaEttInnrePodcastItem(kategori, podcast, avsnitt, "status").Equals("Lyssnad"));
+            {
+                spelad = true;
+            }
+            return spelad;
         }
     }
 }

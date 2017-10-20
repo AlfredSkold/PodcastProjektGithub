@@ -69,6 +69,7 @@
             this.cbAndraPod = new System.Windows.Forms.ComboBox();
             this.lblAndraPodValjKategori = new System.Windows.Forms.Label();
             this.lblAndraPod = new System.Windows.Forms.Label();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // label8
@@ -392,6 +393,7 @@
             this.btnPlay.TabIndex = 88;
             this.btnPlay.Text = "Play";
             this.btnPlay.UseVisualStyleBackColor = true;
+            this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
             // 
             // rtbDesc
             // 
@@ -413,6 +415,7 @@
             // 
             // clbAvsnitt
             // 
+            this.clbAvsnitt.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.clbAvsnitt.FormattingEnabled = true;
             this.clbAvsnitt.Location = new System.Drawing.Point(23, 96);
             this.clbAvsnitt.Name = "clbAvsnitt";
@@ -544,6 +547,7 @@
         private System.Windows.Forms.ComboBox cbAndraPod;
         private System.Windows.Forms.Label lblAndraPodValjKategori;
         private System.Windows.Forms.Label lblAndraPod;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
 

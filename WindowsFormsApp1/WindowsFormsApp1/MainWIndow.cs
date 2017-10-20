@@ -81,12 +81,15 @@ namespace WindowsFormsApp1
             var kategori = cbValjEnKategori.Text;
             Podcast lista = new Podcast();
             string[] listaPodcasts = lista.listaFranEnKategori(kategori);
-
+            string filNamn = "";
             for (int i = 0; i < listaPodcasts.Length; i++)
             {
-                string filNamn = new FileInfo(listaPodcasts[i]).Name.Replace(".xml", "");
+                if (new FileInfo(listaPodcasts[i]).Name.Contains(".xml"))
+                {
+                   filNamn = new FileInfo(listaPodcasts[i]).Name.Replace(".xml", "");
+                    cbValjEnPodcast.Items.Add(filNamn);
+                }
                 
-                cbValjEnPodcast.Items.Add(filNamn);
             }
         }
 
@@ -109,7 +112,7 @@ namespace WindowsFormsApp1
         {
             
             fyllComboBoxPodcasts();
-
+            Podcast podcastElement = new Podcast();
         }
 
         private void cbValjEnPodcast_SelectedIndexChanged(object sender, EventArgs e)
@@ -117,12 +120,19 @@ namespace WindowsFormsApp1
             var kategori = cbValjEnKategori.Text;
             var podcast = cbValjEnPodcast.Text;
             Podcast enPodcast = new Podcast();
-
+            int i = 0;
             List<string> allaAvsnitt = enPodcast.hamtaAvsnitt(podcast, kategori);
             foreach (var avsnitt in allaAvsnitt)
             {
-                clbAvsnitt.Items.Add(avsnitt);
+                if (enPodcast.arAvsnittSpelat(kategori, podcast, avsnitt))
+                {
+                    clbAvsnitt.Items.Add(avsnitt);
+                    clbAvsnitt.SetItemChecked(i, false);
+                }
+                i++;
             }
+
+
         }
 
         private void fillComboBoxIntervall(ComboBox cb)
@@ -188,6 +198,19 @@ namespace WindowsFormsApp1
 
         private void lblAndraPodKategori_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void btnPlay_Click(object sender, EventArgs e)
+        {
+            var valtAvsnitt = clbAvsnitt.Text;
+            var valdKategori = cbValjEnKategori.Text;
+            var valdPod = cbValjEnPodcast.Text;
+            MessageBox.Show("Laddar ner avsnittet och spelar den strax");
+            Podcast podcastElement = new Podcast();
+            var ljudfilPath = podcastElement.hamtaLjudfil(valdKategori, valdPod, valtAvsnitt);
+
+            podcastElement.spelaLjudfil(ljudfilPath);
 
         }
     }
