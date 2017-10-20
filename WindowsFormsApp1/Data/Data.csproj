@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="AbstractClass.cs" />
     <Compile Include="NyPodcast.cs" />
+    <Compile Include="PodcastData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="rss.cs" />
   </ItemGroup>

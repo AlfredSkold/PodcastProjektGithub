@@ -30,19 +30,19 @@
         {
             this.label8 = new System.Windows.Forms.Label();
             this.comboBox8 = new System.Windows.Forms.ComboBox();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.cbAndraPodKategori = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
+            this.lblHeadAndraPod = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.button8 = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
             this.textBox6 = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.comboBox7 = new System.Windows.Forms.ComboBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.comboBox6 = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.lblAndraPodKategori = new System.Windows.Forms.Label();
+            this.cbAndraPodAndraKategori = new System.Windows.Forms.ComboBox();
+            this.lblAndraPodIntervall = new System.Windows.Forms.Label();
+            this.cbAndraPodIntervall = new System.Windows.Forms.ComboBox();
+            this.lblAndraPodUrl = new System.Windows.Forms.Label();
+            this.tbAndraPodUrl = new System.Windows.Forms.TextBox();
             this.cbKategori = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.laggTillPodcast = new System.Windows.Forms.Button();
@@ -51,8 +51,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.cbValjEnPodcast = new System.Windows.Forms.ComboBox();
             this.button5 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnAndraPodcast = new System.Windows.Forms.Button();
+            this.btnTaBortPod = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.tbNyKategori = new System.Windows.Forms.TextBox();
@@ -63,9 +63,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tbURL = new System.Windows.Forms.TextBox();
             this.btnPlay = new System.Windows.Forms.Button();
-            this.richTextBox3 = new System.Windows.Forms.RichTextBox();
+            this.rtbDesc = new System.Windows.Forms.RichTextBox();
             this.btnMerInfo = new System.Windows.Forms.Button();
             this.clbAvsnitt = new System.Windows.Forms.CheckedListBox();
+            this.cbAndraPod = new System.Windows.Forms.ComboBox();
+            this.lblAndraPodValjKategori = new System.Windows.Forms.Label();
+            this.lblAndraPod = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label8
@@ -80,19 +83,22 @@
             // 
             // comboBox8
             // 
+            this.comboBox8.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox8.FormattingEnabled = true;
-            this.comboBox8.Location = new System.Drawing.Point(790, 286);
+            this.comboBox8.Location = new System.Drawing.Point(790, 312);
             this.comboBox8.Name = "comboBox8";
             this.comboBox8.Size = new System.Drawing.Size(147, 21);
             this.comboBox8.TabIndex = 86;
             // 
-            // comboBox5
+            // cbAndraPodKategori
             // 
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Location = new System.Drawing.Point(790, 60);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(152, 21);
-            this.comboBox5.TabIndex = 84;
+            this.cbAndraPodKategori.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbAndraPodKategori.FormattingEnabled = true;
+            this.cbAndraPodKategori.Location = new System.Drawing.Point(790, 60);
+            this.cbAndraPodKategori.Name = "cbAndraPodKategori";
+            this.cbAndraPodKategori.Size = new System.Drawing.Size(152, 21);
+            this.cbAndraPodKategori.TabIndex = 84;
+            this.cbAndraPodKategori.SelectedIndexChanged += new System.EventHandler(this.cbAndraPodKategori_SelectedIndexChanged);
             // 
             // label18
             // 
@@ -104,15 +110,15 @@
             this.label18.TabIndex = 83;
             this.label18.Text = "Välj en kategori";
             // 
-            // label15
+            // lblHeadAndraPod
             // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(786, 35);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(135, 20);
-            this.label15.TabIndex = 82;
-            this.label15.Text = "Ändra en podcast";
+            this.lblHeadAndraPod.AutoSize = true;
+            this.lblHeadAndraPod.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHeadAndraPod.Location = new System.Drawing.Point(786, 35);
+            this.lblHeadAndraPod.Name = "lblHeadAndraPod";
+            this.lblHeadAndraPod.Size = new System.Drawing.Size(135, 20);
+            this.lblHeadAndraPod.TabIndex = 82;
+            this.lblHeadAndraPod.Text = "Ändra en podcast";
             // 
             // label10
             // 
@@ -125,7 +131,7 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(806, 390);
+            this.button8.Location = new System.Drawing.Point(806, 416);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(114, 23);
             this.button8.TabIndex = 78;
@@ -135,7 +141,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(729, 314);
+            this.label16.Location = new System.Drawing.Point(729, 340);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(55, 13);
             this.label16.TabIndex = 77;
@@ -143,60 +149,65 @@
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(790, 314);
+            this.textBox6.Location = new System.Drawing.Point(790, 340);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(152, 20);
             this.textBox6.TabIndex = 76;
             // 
-            // label14
+            // lblAndraPodKategori
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(738, 143);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(46, 13);
-            this.label14.TabIndex = 75;
-            this.label14.Text = "Kategori";
+            this.lblAndraPodKategori.AutoSize = true;
+            this.lblAndraPodKategori.Location = new System.Drawing.Point(721, 169);
+            this.lblAndraPodKategori.Name = "lblAndraPodKategori";
+            this.lblAndraPodKategori.Size = new System.Drawing.Size(62, 13);
+            this.lblAndraPodKategori.TabIndex = 75;
+            this.lblAndraPodKategori.Text = "Ny Kategori";
+            this.lblAndraPodKategori.Click += new System.EventHandler(this.lblAndraPodKategori_Click);
             // 
-            // comboBox7
+            // cbAndraPodAndraKategori
             // 
-            this.comboBox7.FormattingEnabled = true;
-            this.comboBox7.Location = new System.Drawing.Point(790, 140);
-            this.comboBox7.Name = "comboBox7";
-            this.comboBox7.Size = new System.Drawing.Size(152, 21);
-            this.comboBox7.TabIndex = 74;
+            this.cbAndraPodAndraKategori.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbAndraPodAndraKategori.FormattingEnabled = true;
+            this.cbAndraPodAndraKategori.Location = new System.Drawing.Point(790, 166);
+            this.cbAndraPodAndraKategori.Name = "cbAndraPodAndraKategori";
+            this.cbAndraPodAndraKategori.Size = new System.Drawing.Size(152, 21);
+            this.cbAndraPodAndraKategori.TabIndex = 74;
             // 
-            // label13
+            // lblAndraPodIntervall
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(678, 116);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(106, 13);
-            this.label13.TabIndex = 73;
-            this.label13.Text = "Uppdateringsintervall";
+            this.lblAndraPodIntervall.AutoSize = true;
+            this.lblAndraPodIntervall.Location = new System.Drawing.Point(677, 139);
+            this.lblAndraPodIntervall.Name = "lblAndraPodIntervall";
+            this.lblAndraPodIntervall.Size = new System.Drawing.Size(106, 13);
+            this.lblAndraPodIntervall.TabIndex = 73;
+            this.lblAndraPodIntervall.Text = "Uppdateringsintervall";
+            this.lblAndraPodIntervall.Click += new System.EventHandler(this.lblAndraPodIntervall_Click);
             // 
-            // comboBox6
+            // cbAndraPodIntervall
             // 
-            this.comboBox6.FormattingEnabled = true;
-            this.comboBox6.Location = new System.Drawing.Point(790, 113);
-            this.comboBox6.Name = "comboBox6";
-            this.comboBox6.Size = new System.Drawing.Size(152, 21);
-            this.comboBox6.TabIndex = 72;
+            this.cbAndraPodIntervall.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbAndraPodIntervall.FormattingEnabled = true;
+            this.cbAndraPodIntervall.Location = new System.Drawing.Point(790, 139);
+            this.cbAndraPodIntervall.Name = "cbAndraPodIntervall";
+            this.cbAndraPodIntervall.Size = new System.Drawing.Size(152, 21);
+            this.cbAndraPodIntervall.TabIndex = 72;
             // 
-            // label11
+            // lblAndraPodUrl
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(755, 90);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(29, 13);
-            this.label11.TabIndex = 71;
-            this.label11.Text = "URL";
+            this.lblAndraPodUrl.AutoSize = true;
+            this.lblAndraPodUrl.Location = new System.Drawing.Point(738, 116);
+            this.lblAndraPodUrl.Name = "lblAndraPodUrl";
+            this.lblAndraPodUrl.Size = new System.Drawing.Size(45, 13);
+            this.lblAndraPodUrl.TabIndex = 71;
+            this.lblAndraPodUrl.Text = "Ny URL";
+            this.lblAndraPodUrl.Click += new System.EventHandler(this.lblAndraPodUrl_Click);
             // 
-            // textBox4
+            // tbAndraPodUrl
             // 
-            this.textBox4.Location = new System.Drawing.Point(790, 87);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(152, 20);
-            this.textBox4.TabIndex = 70;
+            this.tbAndraPodUrl.Location = new System.Drawing.Point(790, 113);
+            this.tbAndraPodUrl.Name = "tbAndraPodUrl";
+            this.tbAndraPodUrl.Size = new System.Drawing.Size(152, 20);
+            this.tbAndraPodUrl.TabIndex = 70;
             // 
             // cbKategori
             // 
@@ -253,7 +264,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(786, 263);
+            this.label6.Location = new System.Drawing.Point(786, 289);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(135, 20);
             this.label6.TabIndex = 64;
@@ -271,30 +282,31 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(806, 361);
+            this.button5.Location = new System.Drawing.Point(806, 387);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(114, 23);
             this.button5.TabIndex = 62;
             this.button5.Text = "Ändra kategori";
             this.button5.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btnAndraPodcast
             // 
-            this.button3.Location = new System.Drawing.Point(806, 175);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(114, 23);
-            this.button3.TabIndex = 61;
-            this.button3.Text = "Ändra podcast";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnAndraPodcast.Location = new System.Drawing.Point(806, 201);
+            this.btnAndraPodcast.Name = "btnAndraPodcast";
+            this.btnAndraPodcast.Size = new System.Drawing.Size(114, 23);
+            this.btnAndraPodcast.TabIndex = 61;
+            this.btnAndraPodcast.Text = "Ändra podcast";
+            this.btnAndraPodcast.UseVisualStyleBackColor = true;
+            this.btnAndraPodcast.Click += new System.EventHandler(this.btnAndraPodcast_Click);
             // 
-            // button2
+            // btnTaBortPod
             // 
-            this.button2.Location = new System.Drawing.Point(829, 204);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 60;
-            this.button2.Text = "Ta bort podcasts";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnTaBortPod.Location = new System.Drawing.Point(829, 230);
+            this.btnTaBortPod.Name = "btnTaBortPod";
+            this.btnTaBortPod.Size = new System.Drawing.Size(75, 23);
+            this.btnTaBortPod.TabIndex = 60;
+            this.btnTaBortPod.Text = "Ta bort podcasts";
+            this.btnTaBortPod.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
@@ -381,13 +393,13 @@
             this.btnPlay.Text = "Play";
             this.btnPlay.UseVisualStyleBackColor = true;
             // 
-            // richTextBox3
+            // rtbDesc
             // 
-            this.richTextBox3.Location = new System.Drawing.Point(209, 265);
-            this.richTextBox3.Name = "richTextBox3";
-            this.richTextBox3.Size = new System.Drawing.Size(257, 148);
-            this.richTextBox3.TabIndex = 89;
-            this.richTextBox3.Text = "";
+            this.rtbDesc.Location = new System.Drawing.Point(209, 265);
+            this.rtbDesc.Name = "rtbDesc";
+            this.rtbDesc.Size = new System.Drawing.Size(257, 180);
+            this.rtbDesc.TabIndex = 89;
+            this.rtbDesc.Text = "";
             // 
             // btnMerInfo
             // 
@@ -397,6 +409,7 @@
             this.btnMerInfo.TabIndex = 90;
             this.btnMerInfo.Text = "Mer info";
             this.btnMerInfo.UseVisualStyleBackColor = true;
+            this.btnMerInfo.Click += new System.EventHandler(this.btnMerInfo_Click);
             // 
             // clbAvsnitt
             // 
@@ -406,30 +419,61 @@
             this.clbAvsnitt.Size = new System.Drawing.Size(173, 349);
             this.clbAvsnitt.TabIndex = 91;
             // 
+            // cbAndraPod
+            // 
+            this.cbAndraPod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbAndraPod.FormattingEnabled = true;
+            this.cbAndraPod.Location = new System.Drawing.Point(790, 86);
+            this.cbAndraPod.Name = "cbAndraPod";
+            this.cbAndraPod.Size = new System.Drawing.Size(152, 21);
+            this.cbAndraPod.TabIndex = 92;
+            this.cbAndraPod.SelectedIndexChanged += new System.EventHandler(this.cbAndraPod_SelectedIndexChanged);
+            // 
+            // lblAndraPodValjKategori
+            // 
+            this.lblAndraPodValjKategori.AutoSize = true;
+            this.lblAndraPodValjKategori.Location = new System.Drawing.Point(738, 64);
+            this.lblAndraPodValjKategori.Name = "lblAndraPodValjKategori";
+            this.lblAndraPodValjKategori.Size = new System.Drawing.Size(46, 13);
+            this.lblAndraPodValjKategori.TabIndex = 93;
+            this.lblAndraPodValjKategori.Text = "Kategori";
+            // 
+            // lblAndraPod
+            // 
+            this.lblAndraPod.AutoSize = true;
+            this.lblAndraPod.Location = new System.Drawing.Point(738, 90);
+            this.lblAndraPod.Name = "lblAndraPod";
+            this.lblAndraPod.Size = new System.Drawing.Size(46, 13);
+            this.lblAndraPod.TabIndex = 94;
+            this.lblAndraPod.Text = "Podcast";
+            // 
             // MainWIndow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(972, 472);
+            this.Controls.Add(this.lblAndraPod);
+            this.Controls.Add(this.lblAndraPodValjKategori);
+            this.Controls.Add(this.cbAndraPod);
             this.Controls.Add(this.clbAvsnitt);
             this.Controls.Add(this.btnMerInfo);
-            this.Controls.Add(this.richTextBox3);
+            this.Controls.Add(this.rtbDesc);
             this.Controls.Add(this.btnPlay);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.comboBox8);
-            this.Controls.Add(this.comboBox5);
+            this.Controls.Add(this.cbAndraPodKategori);
             this.Controls.Add(this.label18);
-            this.Controls.Add(this.label15);
+            this.Controls.Add(this.lblHeadAndraPod);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.label14);
-            this.Controls.Add(this.comboBox7);
-            this.Controls.Add(this.label13);
-            this.Controls.Add(this.comboBox6);
-            this.Controls.Add(this.label11);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.lblAndraPodKategori);
+            this.Controls.Add(this.cbAndraPodAndraKategori);
+            this.Controls.Add(this.lblAndraPodIntervall);
+            this.Controls.Add(this.cbAndraPodIntervall);
+            this.Controls.Add(this.lblAndraPodUrl);
+            this.Controls.Add(this.tbAndraPodUrl);
             this.Controls.Add(this.cbKategori);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.laggTillPodcast);
@@ -438,8 +482,8 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cbValjEnPodcast);
             this.Controls.Add(this.button5);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnAndraPodcast);
+            this.Controls.Add(this.btnTaBortPod);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.tbNyKategori);
@@ -461,19 +505,19 @@
 
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox comboBox8;
-        private System.Windows.Forms.ComboBox comboBox5;
+        private System.Windows.Forms.ComboBox cbAndraPodKategori;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label lblHeadAndraPod;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.ComboBox comboBox7;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.ComboBox comboBox6;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Label lblAndraPodKategori;
+        private System.Windows.Forms.ComboBox cbAndraPodAndraKategori;
+        private System.Windows.Forms.Label lblAndraPodIntervall;
+        private System.Windows.Forms.ComboBox cbAndraPodIntervall;
+        private System.Windows.Forms.Label lblAndraPodUrl;
+        private System.Windows.Forms.TextBox tbAndraPodUrl;
         private System.Windows.Forms.ComboBox cbKategori;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button laggTillPodcast;
@@ -482,8 +526,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cbValjEnPodcast;
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnAndraPodcast;
+        private System.Windows.Forms.Button btnTaBortPod;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox tbNyKategori;
@@ -494,9 +538,12 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbURL;
         private System.Windows.Forms.Button btnPlay;
-        private System.Windows.Forms.RichTextBox richTextBox3;
+        private System.Windows.Forms.RichTextBox rtbDesc;
         private System.Windows.Forms.Button btnMerInfo;
         private System.Windows.Forms.CheckedListBox clbAvsnitt;
+        private System.Windows.Forms.ComboBox cbAndraPod;
+        private System.Windows.Forms.Label lblAndraPodValjKategori;
+        private System.Windows.Forms.Label lblAndraPod;
     }
 }
 

@@ -51,5 +51,60 @@ namespace Logic
 
         }
 
+        public string hamtaPodcastUrl(string kategori, string podcast)
+        {
+            PodcastData podcastsElm = new PodcastData();
+
+            var podUrl = podcastsElm.hamtaEttYttrePodcastItem("channel", "url", kategori, podcast);
+
+            return podUrl;
+        }
+
+        public string hamtaPodcastIntervall(string kategori, string podcast)
+        {
+            PodcastData podcastsElm = new PodcastData();
+
+            var podUrl = podcastsElm.hamtaEttYttrePodcastItem("channel", "interval", kategori, podcast);
+
+            return podUrl;
+        }
+
+        public int hamtaIntervalIndex(string intervallText)
+        {
+            int intervallIndex= 0;
+
+            switch (intervallText)
+            {
+                case "5000":
+                    intervallIndex = 0;
+                    break;
+                case "10000":
+                    intervallIndex = 1;
+                    break;
+                case "20000":
+                    intervallIndex = 2;
+                    break;
+                case "30000":
+                    intervallIndex = 3;
+                    break;
+                default:
+                    intervallIndex = 5;
+                    break;
+            }
+            return intervallIndex;
+        }
+
+        public string hamtaPodDesc(string kategori, string podcast, string avsnitt)
+        {
+            string podDesc;
+
+            PodcastData podcastDataElement = new PodcastData();
+
+            string podID = podcastDataElement.hamtaPodId(kategori, podcast, avsnitt).ToString();
+            podDesc = podcastDataElement.hamtaEttInnrePodcastItem(kategori, podcast, avsnitt, podID, "description");
+
+
+            return podDesc;
+        }
     }
 }

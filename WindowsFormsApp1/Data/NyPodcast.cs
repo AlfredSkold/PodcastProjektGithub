@@ -10,7 +10,7 @@ namespace Data
 {
     public class NyPodcast
     {
-        public void addPod(bool nyKategori, String URL, String namn, String intervall, String kategori)
+        public void addPod(bool nyKategori, String URL, String namn, string intervall, String kategori)
         {
             
             if (nyKategori)
@@ -27,6 +27,22 @@ namespace Data
             settings.Indent = true;
             settings.IndentChars = ("    ");
             XmlWriter xmlOut = XmlWriter.Create(path, settings);
+
+            switch(intervall)
+            {
+                case "Var 5e sekund":
+                    intervall = "5000";
+                    break;
+                case "Var 10e sekund":
+                    intervall = "10000";
+                    break;
+                case "Var 20e sekund":
+                    intervall = "20000";
+                    break;
+                case "Var 30e sekund":
+                    intervall = "30000";
+                    break;
+            }
 
             xmlOut.WriteStartDocument();
             xmlOut.WriteStartElement("channel");
