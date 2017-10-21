@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractClass.cs" />
+    <Compile Include="KategoriData.cs" />
     <Compile Include="NyPodcast.cs" />
     <Compile Include="PodcastData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -14,7 +14,7 @@ namespace Data
 
         public string hamtaEttYttrePodcastItem(string tag, string item, string kategori, string podcast)
         {
-            var podcastUrl = "";
+            var podcastItem = "";
             var path = Directory.GetCurrentDirectory() + @"\" + kategori + @"\" + podcast + @".xml";
 
             XmlDocument xdoc = new XmlDocument();
@@ -24,14 +24,14 @@ namespace Data
             for (int i = 0; i < list.Count; i++)
             {
                 XmlElement cl = (XmlElement)xdoc.GetElementsByTagName(item)[i];
-                podcastUrl = cl.InnerText;
-                Console.WriteLine(podcastUrl);
+                podcastItem = cl.InnerText;
+                Console.WriteLine(podcastItem);
                 break;
             }
 
             rfile.Close();
 
-            return podcastUrl;
+            return podcastItem;
         }
 
         public string hamtaEttInnrePodcastItem(string kategori, string podcast, string avsnitt, string item)
@@ -121,87 +121,30 @@ namespace Data
             }
                 
             xmlDoc.Save(path);
+        }
 
+        public void andraYttrePodcastItem(string kategori, string podcast, string item, string nyttItem)
+        {
+            var path = Directory.GetCurrentDirectory() + @"\" + kategori + @"\" + podcast + @".xml";
+            
+            XmlDocument xmlDoc = new XmlDocument();
 
+            xmlDoc.Load(path);
+            XmlNodeList list = xmlDoc.GetElementsByTagName("channel");
+            for (int i = 0; i < list.Count; i++)
+            {
+                XmlElement add = (XmlElement)xmlDoc.GetElementsByTagName(item)[i];
+                add.InnerText = nyttItem;
+            }
 
-            //XmlDocument xdoc = new XmlDocument();
-            //FileStream rfile = new FileStream(path, FileMode.Open);
-            //xdoc.Load(rfile);
+            xmlDoc.Save(path);
+        }
 
-            //XmlElement intervallXml = (XmlElement)xdoc.GetElementsByTagName("interval")[0];
-
-            //XmlElement urlXml = (XmlElement)xdoc.GetElementsByTagName("url")[0];
-
-            //XmlElement lastSyncXml = (XmlElement)xdoc.GetElementsByTagName("lastSync")[0];
-            //string description;
-            //string title;
-            //string enclosure;
-            //string status;
-
-            //XmlNodeList list = xdoc.GetElementsByTagName("item");
-            //for (int i = 0; i < list.Count; i++)
-            //{
-            //    XmlElement itemSomSkaBytas = (XmlElement)xdoc.GetElementsByTagName(item)[i];
-
-            //    XmlElement descriptionXml = (XmlElement)xdoc.GetElementsByTagName("description")[i];
-            //    description = descriptionXml.InnerText;
-            //    XmlElement titleXml = (XmlElement)xdoc.GetElementsByTagName("title")[i];
-            //    title = titleXml.InnerText;
-            //    XmlElement enclosureXml = (XmlElement)xdoc.GetElementsByTagName("enclosure")[i];
-            //    enclosure = enclosureXml.InnerText;
-            //    XmlElement statusXml = (XmlElement)xdoc.GetElementsByTagName("status")[i];
-            //    status = enclosureXml.InnerText;
-
-            //    if (descriptionXml == itemSomSkaBytas)
-            //    {
-            //        description = nyttItem;
-            //    }
-            //    if (titleXml == itemSomSkaBytas)
-            //    {
-            //        title = nyttItem;
-            //    }
-            //    if (enclosureXml == itemSomSkaBytas)
-            //    {
-            //        enclosure = nyttItem;
-            //    }
-            //    if (statusXml == itemSomSkaBytas)
-            //    {
-            //        status = nyttItem;
-            //    }
-            //}
-
-            //for (int j = 0; j < list.Count; j++)
-            //{
-
-            //    if ((cl.GetAttribute("ID")) == podID)
-            //    {
-            //        xmlOut.WriteStartElement("item");
-
-            //    xmlOut.WriteAttributeString("ID", "pod" + podID);
-            //}
-            //    else
-            //    {
-            //        xmlOut.WriteStartElement("item");
-
-            //        xmlOut.WriteAttributeString("ID", "pod" + i);
-
-            //    }
-            //    if (description.InnerText.Equals(""))
-            //    {
-            //        xmlOut.WriteElementString("description", "Unfortunately, no description is available.");
-            //    }
-            //    else
-            //    {
-            //        xmlOut.WriteElementString("description", description.InnerText);
-            //    }
-
-            //    xmlOut.WriteElementString("title", title);
-            //    xmlOut.WriteElementString("enclosure", enclosure);
-            //    xmlOut.WriteElementString("status", "Unlistened");
-
-            //}
-            //    xmlOut.WriteEndElement();
-
+        public void bytPodcastNamn(string kategori, string podcast, string nyttNamn)
+        {
+            string gammalPath = Directory.GetCurrentDirectory() + @"\" + kategori+ @"\" +podcast+ ".xml";
+            string nyPath = Directory.GetCurrentDirectory() + @"\" + kategori+ @"\" + nyttNamn + ".xml";
+            File.Move(gammalPath, nyPath);
         }
     }
 }

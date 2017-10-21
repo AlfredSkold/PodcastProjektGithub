@@ -3,16 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
-using System.IO;
 
-namespace Data
+namespace ClassLibrary1
 {
-    public class NyPodcast
+    public class Avsnitt
     {
-        
-       
-
-       
     }
 }
