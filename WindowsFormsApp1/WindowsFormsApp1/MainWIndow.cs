@@ -35,19 +35,24 @@ namespace WindowsFormsApp1
 
         private void laggTillPodcast_Click(object sender, EventArgs e)
         {
+            if (Validation.textFieldInteTomt(tbURL, tbPodNamn, "En url", "Ett namn") 
+                && Validation.kollaUrl(tbURL.Text) 
+                && Validation.comboBoxInteTomt(cbValjIntervall, "Uppdateringsintervall") 
+                && Validation.textFieldOchComboboxEndastEnVald(tbNyKategori, cbKategori)
+                && Validation.textFieldOchComboboxInteTomt(tbNyKategori, cbKategori))
+            {
+                var url = tbURL.Text;
+                var namn = tbPodNamn.Text;
+                var intervall = cbValjIntervall.Text;
+                var kategoriNamn = cbKategori.Text;
+                var nyKategoriNamn = tbNyKategori.Text;
 
-            var url = tbURL.Text;
-            var namn = tbPodNamn.Text;
-            var intervall = cbValjIntervall.Text;
-            var kategoriNamn = cbKategori.Text;
-            var nyKategoriNamn = tbNyKategori.Text;
+                Podcast podcast = new Podcast();
+                podcast.nyPod(url, namn, intervall, kategoriNamn, nyKategoriNamn);
 
-            Podcast podcast = new Podcast();
-            podcast.nyPod(url, namn, intervall, kategoriNamn, nyKategoriNamn);
-
-            podcast.rensaFaltNyPod(tbURL, tbPodNamn, cbValjIntervall, tbNyKategori);
-            fyllComboBoxKategorier();
-            
+                podcast.rensaFaltNyPod(tbURL, tbPodNamn, cbValjIntervall, tbNyKategori);
+                fyllComboBoxKategorier();
+            }
         }
 
 
@@ -210,5 +215,6 @@ namespace WindowsFormsApp1
             Kategori kategori = new Kategori();
             kategori.taBortKategori(valdKategori, cbAndraKat);
         }
+        
     }
 }

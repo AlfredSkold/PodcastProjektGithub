@@ -9,11 +9,11 @@ namespace Logic
 {
     public class Validation
     {
-        public static bool textFieldNotEmpty(TextBox field, string label)
+        public static bool textFieldInteTomt(TextBox field, string label)
         {
             if (field.Text == "")
             {
-                MessageBox.Show(label + "måste fyllas i. Vänligen ange ett värde.");
+                MessageBox.Show(label + " måste fyllas i. Vänligen ange ett värde.");
                 field.Focus();
                 return false;
             }
@@ -23,7 +23,80 @@ namespace Logic
             }
         }
 
-        public static bool checkIfValidUrl(string url)
+        public static bool textFieldOchComboboxInteTomt(TextBox field, ComboBox combo)
+        {
+            if (field.Text == "" && combo.Text == "")
+            {
+                MessageBox.Show("Du måste välja en kategori eller skapa en ny.");
+                field.Focus();
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public static bool textFieldOchComboboxEndastEnVald(TextBox field, ComboBox combo)
+        {
+            if (field.Text != "" && combo.Text != "")
+            {
+                MessageBox.Show("Du kan inte skapa en ny kategori och lägga till podcasten i en annan samtidigt.");
+                combo.Items.Clear();
+                field.Focus();
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public static bool textFieldInteTomt(TextBox field1, TextBox field2, string label1, string label2)
+        {
+            if (field1.Text == "")
+            {
+                MessageBox.Show(label1 + " måste fyllas i. Vänligen ange ett värde.");
+                field1.Focus();
+                return false;
+            } else if (field2.Text == "")
+            {
+                MessageBox.Show(label2 + " måste fyllas i. Vänligen ange ett värde.");
+                field2.Focus();
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public static bool textFieldInteTomt(TextBox field1, TextBox field2, TextBox field3, string label1, string label2, string label3)
+        {
+            if (field1.Text == "")
+            {
+                MessageBox.Show(label1 + " måste fyllas i. Vänligen ange ett värde.");
+                field1.Focus();
+                return false;
+            }
+            else if (field2.Text == "")
+            {
+                MessageBox.Show(label2 + " måste fyllas i. Vänligen ange ett värde.");
+                field2.Focus();
+                return false;
+            } else if (field3.Text == "")
+            {
+                MessageBox.Show(label3 + " måste fyllas i. Vänligen ange ett värde.");
+                field3.Focus();
+                return false;
+            } 
+            else
+            {
+                return true;
+            }
+        }
+
+        public static bool kollaUrl(string url)
         {
             try
             {
@@ -42,25 +115,34 @@ namespace Logic
             }
         }
 
-        public static bool checkIfUrlExists (string url)
+
+
+
+        public static bool comboBoxInteTomt(ComboBox combo, string label)
+        {
+            if (combo.Text == "")
             {
-            if (url =="")
-            {
-                MessageBox.Show("Url:en är redan tillagd");
+                MessageBox.Show(label + " är inte valt, vänligen ange ett värde");
+                combo.Focus();
                 return false;
             }
             else
             {
                 return true;
             }
-   
         }
 
-        public static bool checkIfNameExists(string namn)
+        public static bool comboBoxInteTomt(ComboBox combo1, ComboBox combo2, string label)
         {
-            if (namn == "")
+            if (combo1.Text == "")
             {
-                MessageBox.Show(namn + "är redan tillagt, vänligen välj ett annat");
+                MessageBox.Show(label + " är inte valt, vänligen ange ett värde");
+                combo1.Focus();
+                return false;
+            } else if (combo2.Text == "")
+            {
+                MessageBox.Show(label + " är inte valt, vänligen ange ett värde");
+                combo2.Focus();
                 return false;
             }
             else
