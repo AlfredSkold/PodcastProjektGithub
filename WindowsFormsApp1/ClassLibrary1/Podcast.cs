@@ -14,7 +14,6 @@ namespace Logic
     {
         public void nyPod (String url, String namn, String intervall, string kategori, string nyKategoriNamn)
         {
-            NyPodcast podcast = new NyPodcast();
             bool nyKategori = false;
             string kategoriNamn;
             if(nyKategoriNamn == "")
@@ -28,7 +27,9 @@ namespace Logic
             }
 
             laggTillNyPodcast(nyKategori, url, namn, intervall, kategoriNamn);
+            MessageBox.Show("Podcasten " + namn + " har blivit tillagd i kategorin " + kategoriNamn + ".");
         }
+        
         private void laggTillNyPodcast(bool nyKategori, String URL, String namn, string intervall, String kategori)
         {
 
@@ -98,33 +99,86 @@ namespace Logic
             }
             xmlOut.WriteEndDocument();
             xmlOut.Close();
-
-
         }
-        public List<string> hamtaAvsnitt (String podcast, string kategori)
+
+
+
+        public void laggTillNyPodcast(String URL, String namn, string intervall, String kategori)
         {
-            List<string> allaAvsnitt = new List<string>();
-            XmlDocument xm = new XmlDocument();
-            string list = "//title";
+            Avsnitt avsnittelm = new Avsnitt();
+            List<string> speladeAvsnitt = avsnittelm.hamtaSpeladeAvsnitt(namn, kategori);
+            string path = Directory.GetCurrentDirectory() + @"/" + kategori + @"\" + namn + @".xml";
+            File.Delete(path);
+            Console.WriteLine(path);
+            rss rssVar = new rss();
+            XmlDocument doc = rssVar.hamtaXML(URL);
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Indent = true;
+            settings.IndentChars = ("    ");
+            XmlWriter xmlOut = XmlWriter.Create(path, settings);
 
-            string path = Directory.GetCurrentDirectory() + @"\" + kategori + @"\" + podcast + @".xml";
-
-            xm.Load(path);
-            XmlNodeList Xn = xm.SelectNodes(list);
-
-            foreach (XmlNode xNode in Xn)
+            switch (intervall)
             {
-                allaAvsnitt.Add(xNode.InnerText);
+                case "Var 5e sekund":
+                    intervall = "5000";
+                    break;
+                case "Var 10e sekund":
+                    intervall = "10000";
+                    break;
+                case "Var 20e sekund":
+                    intervall = "20000";
+                    break;
+                case "Var 30e sekund":
+                    intervall = "30000";
+                    break;
             }
-            return allaAvsnitt;
-        }
 
-        public string[] listaMedKategoriNamn()
-        {
-            String path = Directory.GetCurrentDirectory();
-            string[] kategoriLista = Directory.GetDirectories(path);
-            return kategoriLista;
+            xmlOut.WriteStartDocument();
+            xmlOut.WriteStartElement("channel");
+            xmlOut.WriteElementString("interval", intervall);
+            xmlOut.WriteElementString("url", URL);
+            xmlOut.WriteElementString("lastSync", DateTime.Now.ToString());
+            int i = 0;
+            foreach (XmlNode item
+               in doc.DocumentElement.SelectNodes("channel/item"))
+            {
+                var title = item.SelectSingleNode("title");
+                var description = item.SelectSingleNode("description");
+                var enclosure = item.SelectSingleNode("enclosure/@url");
 
+                xmlOut.WriteStartElement("item");
+
+                xmlOut.WriteAttributeString("ID", "pod" + i);
+
+                if (description.InnerText.Equals(""))
+                {
+                    xmlOut.WriteElementString("description", "Unfortunately, no description is available.");
+                }
+                else
+                {
+                    xmlOut.WriteElementString("description", description.InnerText);
+                }
+
+                for (int j = 0; j < speladeAvsnitt.Count; j++)
+                {
+                    
+                        xmlOut.WriteElementString("title", title.InnerText);
+                        xmlOut.WriteElementString("enclosure", enclosure.InnerText);
+                    if (speladeAvsnitt[j] == "Listened")
+                    {
+                        xmlOut.WriteElementString("status", "Listened");
+                    } else
+                    {
+                        xmlOut.WriteElementString("status", "Unlistened");
+                    }
+                }
+                    
+
+                xmlOut.WriteEndElement();
+                i++;
+            }
+            xmlOut.WriteEndDocument();
+            xmlOut.Close();
         }
 
         public void fyllComboboxMedPodcasts(string kategori, ComboBox combobox)
@@ -148,27 +202,16 @@ namespace Logic
         {
             PodcastData podcastsElm = new PodcastData();
 
-            var podUrl = podcastsElm.hamtaEttYttrePodcastItem("channel", "url", kategori, podcast);
+            var podUrl = podcastsElm.hamtaPodcastInfo("url", kategori, podcast);
 
             return podUrl;
         }
 
-        public bool lyssnadPa(string kategori, string podcast, string avsnitt)
-        {
-            bool lyssnad = false;
-            PodcastData podcastDataElement = new PodcastData();
-            var hamtad = podcastDataElement.hamtaEttInnrePodcastItem(kategori, podcast, avsnitt, "status");
-            if(hamtad == "Listened")
-            {
-                lyssnad = true;
-            }
-            return lyssnad;
-        }
         public string hamtaPodcastIntervall(string kategori, string podcast)
         {
             PodcastData podcastsElm = new PodcastData();
 
-            var intervall = podcastsElm.hamtaEttYttrePodcastItem("channel", "interval", kategori, podcast);
+            var intervall = podcastsElm.hamtaPodcastInfo("interval", kategori, podcast);
             switch(intervall)
             {
                 case "5000":
@@ -209,51 +252,32 @@ namespace Logic
             return intervallIndex;
         }
 
-        public string hamtaPodDesc(string kategori, string podcast, string avsnitt)
+        public void skrivBeskrivning(string kategori, string podcast, string avsnitt, RichTextBox rtb)
         {
-            string podDesc;
+            string beskrivning;
 
-            PodcastData podcastDataElement = new PodcastData();
-
-            
-            podDesc = podcastDataElement.hamtaEttInnrePodcastItem(kategori, podcast, avsnitt, "description");
+            AvsnittData avsnittElm = new AvsnittData();
 
 
-            return podDesc;
+            beskrivning = avsnittElm.hamtaAvsnittsInfo(kategori, podcast, avsnitt, "description");
+
+            rtb.Text = beskrivning;
         }
 
-        public string hamtaLjudfil(string kategori, string podcast, string avsnitt)
+        public void skrivPodcastInfo(string valdKategori, string valdPod, TextBox tburl, TextBox tbnamn, ComboBox cbkategori, ComboBox cbpodcast, ComboBox cbintervall, ComboBox cbnykategori)
         {
-            PodcastData podcastDataElement = new PodcastData();
-            avsnittSpelad(kategori, podcast, avsnitt);
-            string ljudfilUrl = podcastDataElement.hamtaEttInnrePodcastItem(kategori, podcast, avsnitt, "enclosure");
-            var ljudfilPath = podcastDataElement.hamtaLjudfil(ljudfilUrl, kategori, podcast, avsnitt);
-            return ljudfilPath;
+            tburl.Text = hamtaPodcastUrl(valdKategori, valdPod);
+            tbnamn.Text = cbpodcast.Text;
+
+            var valdPodIntervall = hamtaPodcastIntervall(valdKategori, valdPod);
+
+            var valdPodIntervallIndex = hamtaIntervalIndex(valdPodIntervall);
+
+            cbintervall.SelectedIndex = valdPodIntervallIndex;
+            cbnykategori.SelectedIndex = cbkategori.SelectedIndex;
         }
 
-        public void spelaLjudfil(string path)
-        {
-            System.Diagnostics.Process.Start(path);
-
-        }
-
-        public void avsnittSpelad(string kategori, string podcast, string avsnitt)
-        {
-            PodcastData podcastDataElement = new PodcastData();
-            podcastDataElement.andraInnrePodcastItem(kategori, podcast, avsnitt, "status", "Listened");
-        }
-
-        public bool arAvsnittSpelat(string kategori, string podcast, string avsnitt)
-        {
-            PodcastData podcastDataElement = new PodcastData();
-            bool spelad = false;
-            var status = podcastDataElement.hamtaEttInnrePodcastItem(kategori, podcast, avsnitt, "status");
-            if (status == "Listened")
-            {
-                spelad = true;
-            }
-            return spelad;
-        }
+        
 
         public void andraPodcast(string valdKategori, string valdPodcast, string nyUrl, string nyttNamn, string nyttIntervall, string nyKategori)
         {
@@ -272,9 +296,20 @@ namespace Logic
                     nyttIntervall = "30000";
                     break;
             }
+
             andraPodcastItem(valdKategori, valdPodcast, "url", nyUrl);
+
             andraPodcastItem(valdKategori, valdPodcast, "interval", nyttIntervall);
-            bytPodNamn(valdKategori, valdPodcast, nyttNamn);
+
+            if (valdPodcast != nyttNamn)
+            {
+                bytPodNamn(valdKategori, valdPodcast, nyttNamn);
+                MessageBox.Show("Infon för podcast " + nyttNamn + " är uppdaterad.");
+            }
+            else
+            {
+                MessageBox.Show("Infon för podcast " + valdPodcast + " är uppdaterad.");
+            }
         }
 
         public void andraPodcastItem(string kategori, string podcast, string item, string nyttItem)
@@ -282,16 +317,17 @@ namespace Logic
             PodcastData podelm = new PodcastData();
             if(nyttItem != "")
             {
-                podelm.andraYttrePodcastItem(kategori, podcast, item, nyttItem);
+                podelm.andraPodcastInfo(kategori, podcast, item, nyttItem);
             }
         }
 
         public void bytPodNamn(string kategori, string podcast, string nyttNamn)
         {
-            PodcastData podelm = new PodcastData();
             if (nyttNamn != "")
             {
-                podelm.bytPodcastNamn(kategori, podcast, nyttNamn);
+                string gammalPath = Directory.GetCurrentDirectory() + @"\" + kategori + @"\" + podcast + ".xml";
+                string nyPath = Directory.GetCurrentDirectory() + @"\" + kategori + @"\" + nyttNamn + ".xml";
+                File.Move(gammalPath, nyPath);
             }
         }
 
@@ -306,12 +342,27 @@ namespace Logic
                 tbAndraPodUrl.Clear();
                 cbAndraPodIntervall.Items.Clear();
                 cbAndraPod.Items.Clear();
+                MessageBox.Show(podcast + " är borttagen.");
             }
         }
 
-        public void hamtaNyttAvsnitt(string url, string kategori, string podcast)
+        public void rensaFaltAndraPod(ComboBox cbAndraPod, TextBox tbAndraPodUrl, TextBox tbAndraPodNamn, ComboBox cbAndraPodIntervall, ComboBox cbAndraPodAndraKategori)
         {
-
+            cbAndraPod.Items.Clear();
+            tbAndraPodUrl.Clear();
+            tbAndraPodNamn.Clear();
+            cbAndraPodIntervall.Items.Clear();
+            cbAndraPodAndraKategori.Items.Clear();
         }
+
+        public void rensaFaltNyPod(TextBox tbURL, TextBox tbPodNamn, ComboBox cbValjIntervall, TextBox tbNyKategori)
+        {
+            tbURL.Clear();
+            tbPodNamn.Clear();
+            cbValjIntervall.Items.Clear();
+            tbNyKategori.Clear();
+        }
+
+        
     }
 }

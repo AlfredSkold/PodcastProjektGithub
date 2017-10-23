@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Logic;
 using System.IO;
+using System.Threading.Tasks;
+using System.Timers;
 
 namespace WindowsFormsApp1
 {
@@ -17,13 +19,13 @@ namespace WindowsFormsApp1
         public MainWIndow()
         {
             InitializeComponent();
+            Directory.CreateDirectory(Directory.GetCurrentDirectory() + @"\xmlFiler");
             fyllComboBoxes();
         }
         
         private void fyllComboBoxes()
         {
             fyllComboBoxKategorier();
-            fillComboBoxIntervall(cbAndraPodIntervall);
             fillComboBoxIntervall(cbValjIntervall);
         }
         private void Form1_Load(object sender, EventArgs e)
@@ -37,19 +39,18 @@ namespace WindowsFormsApp1
             var url = tbURL.Text;
             var namn = tbPodNamn.Text;
             var intervall = cbValjIntervall.Text;
-            var kategori = cbKategori.Text;
+            var kategoriNamn = cbKategori.Text;
             var nyKategoriNamn = tbNyKategori.Text;
 
-            Podcast metod = new Podcast();
-            metod.nyPod(url, namn, intervall, kategori, nyKategoriNamn);
+            Podcast podcast = new Podcast();
+            podcast.nyPod(url, namn, intervall, kategoriNamn, nyKategoriNamn);
 
-            if (kategori == "")
-            {
-                kategori = nyKategoriNamn;
-            }
-            MessageBox.Show("Podcasten " + namn + " har blivit tillagd i kategorin " + kategori + ".");
+            podcast.rensaFaltNyPod(tbURL, tbPodNamn, cbValjIntervall, tbNyKategori);
             fyllComboBoxKategorier();
+            
         }
+
+
 
         private void fyllComboBoxKategorier()
         {
@@ -71,27 +72,22 @@ namespace WindowsFormsApp1
             podcast.fyllComboboxMedPodcasts(kategori, cbValjEnPodcast);
         }
 
+
+
         private void cbValjEnPodcast_SelectedIndexChanged(object sender, EventArgs e)
         {
-            clbAvsnitt.Items.Clear();
             var kategori = cbValjEnKategori.Text;
             var podcast = cbValjEnPodcast.Text;
-            Podcast enPodcast = new Podcast();
-            int i = 0;
-            List<string> allaAvsnitt = enPodcast.hamtaAvsnitt(podcast, kategori);
-            foreach (var avsnitt in allaAvsnitt)
-            {
-                clbAvsnitt.Items.Add(avsnitt);
-                if (enPodcast.arAvsnittSpelat(kategori, podcast, avsnitt))
-                {
-
-                    clbAvsnitt.SetItemChecked(i, true);
-                }
-                i++;
-            }
-
-
+            Avsnitt avsnitt = new Avsnitt();
+            Podcast enpodcast = new Podcast();
+            var url = enpodcast.hamtaPodcastUrl(kategori, podcast);
+            
+            avsnitt.fyllClbMedAvsnitt(kategori, podcast, lbAvsnitt, lblAvsnitt);
+            
+            
         }
+
+
 
         private void fillComboBoxIntervall(ComboBox cb)
         {
@@ -101,21 +97,13 @@ namespace WindowsFormsApp1
             cb.Items.Add("Var 30e sekund");
         }
 
-        private void fillComboBoxes()
-        {
-            fyllComboBoxKategorier();
-        }
+
 
         private void cbAndraPodKategori_SelectedIndexChanged(object sender, EventArgs e)
         {
             var kategori = cbAndraPodKategori.Text;
             Podcast podcast = new Podcast();
             podcast.fyllComboboxMedPodcasts(kategori, cbAndraPod);
-        }
-
-        private void lblAndraPodUrl_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void btnAndraPodcast_Click(object sender, EventArgs e)
@@ -132,90 +120,57 @@ namespace WindowsFormsApp1
             podelm.andraPodcast(valdKategori, valdPodcast, nyUrl, nyttNamn, nyttIntervall, nyKategori);
 
             Kategori kategori = new Kategori();
-            kategori.andraKategoriNamn(valdKategori, nyKategori);
+            kategori.bytKategori(valdKategori, valdPodcast, nyKategori);
 
+            podelm.rensaFaltAndraPod(cbAndraPod, tbAndraPodUrl, tbAndraPodNamn, cbAndraPodIntervall, cbAndraPodAndraKategori);
             fyllComboBoxKategorier();
         }
+
+
 
         private void cbAndraPod_SelectedIndexChanged(object sender, EventArgs e)
         {
             var valdKategori = cbAndraPodKategori.Text;
             var valdPod = cbAndraPod.Text;
             Podcast podcastElm = new Podcast();
-
-            tbAndraPodUrl.Text = podcastElm.hamtaPodcastUrl(valdKategori, valdPod);
-            tbAndraPodNamn.Text = cbAndraPod.Text;
-
-            var valdPodIntervall = podcastElm.hamtaPodcastIntervall(valdKategori, valdPod);
-
-            var valdPodIntervallIndex = podcastElm.hamtaIntervalIndex(valdPodIntervall);
-
-            cbAndraPodIntervall.SelectedIndex = valdPodIntervallIndex;
-            cbAndraPodAndraKategori.SelectedIndex = cbAndraPodKategori.SelectedIndex;
+            fillComboBoxIntervall(cbAndraPodIntervall);
+            podcastElm.skrivPodcastInfo(valdKategori, valdPod, tbAndraPodUrl, tbAndraPodNamn, cbAndraPodKategori, cbAndraPod, cbAndraPodIntervall, cbAndraPodAndraKategori);
+            
         }
 
-        private void lblAndraPodIntervall_Click(object sender, EventArgs e)
-        {
 
-        }
 
         private void btnMerInfo_Click(object sender, EventArgs e)
         {
-            var valtAvsnitt = clbAvsnitt.Text;
+            var valtAvsnitt = lbAvsnitt.Text;
             var valdPodcast = cbValjEnPodcast.Text;
             var valdKategori = cbValjEnKategori.Text;
 
             Podcast podcastElement = new Podcast();
-
-            var podDesc = podcastElement.hamtaPodDesc(valdKategori, valdPodcast, valtAvsnitt);
-            rtbDesc.Text = podDesc;
-        }
-
-        private void lblAndraPodKategori_Click(object sender, EventArgs e)
-        {
-
+            podcastElement.skrivBeskrivning(valdKategori, valdPodcast, valtAvsnitt, rtbDesc);
         }
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            var valtAvsnitt = clbAvsnitt.Text;
+            var valtAvsnitt = lbAvsnitt.Text;
             var valdKategori = cbValjEnKategori.Text;
             var valdPod = cbValjEnPodcast.Text;
-            clbAvsnitt.SetItemChecked(clbAvsnitt.SelectedIndex, true);
-            MessageBox.Show("Laddar ner avsnittet och spelar den strax");
-            Podcast podcastElement = new Podcast();
-            var ljudfilPath = podcastElement.hamtaLjudfil(valdKategori, valdPod, valtAvsnitt);
+            var valtAvsnittIndex = lbAvsnitt.SelectedIndex;
 
-            podcastElement.spelaLjudfil(ljudfilPath);
-
-        }
-
-        private void clbAvsnitt_SelectedIndexChanged(object sender, EventArgs e)
-        {
             
-        }
-
-        private void clbAvsnitt_ItemCheck(object sender, ItemCheckEventArgs e)
-        {
-            var kategori = cbValjEnKategori.Text;
-            var podcast = cbValjEnPodcast.Text;
-            var avsnitt = clbAvsnitt.Text;
-
-            Podcast podelm = new Podcast();
-            podelm.avsnittSpelad(kategori, podcast, avsnitt);
+            Avsnitt avsnitt = new Avsnitt();
+            avsnitt.spelaAvsnitt(valdKategori, valdPod, valtAvsnitt, lbAvsnitt, valtAvsnittIndex);
+            avsnitt.fyllClbMedAvsnitt(valdKategori, valdPod, lbAvsnitt, lblAvsnitt);
         }
 
         private void btnSkapaNyKat_Click(object sender, EventArgs e)
         {
             var nyttKategoriNamn = tbSkapaNyKat.Text;
             Kategori kategori = new Kategori();
-            if (nyttKategoriNamn != "")
-            { 
-                kategori.skapaNyKategori(nyttKategoriNamn);
-                MessageBox.Show("Kategorin " + nyttKategoriNamn + " är skapad!");
-                tbSkapaNyKat.Clear();
-                fyllComboBoxKategorier();
-            }
+
+            kategori.skapaNyKategori(nyttKategoriNamn, tbSkapaNyKat);
+            fyllComboBoxKategorier();
+            
         }
 
         private void btnAndraKat_Click(object sender, EventArgs e)

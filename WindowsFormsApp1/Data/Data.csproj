@@ -41,14 +41,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractClass.cs" />
+    <Compile Include="AvsnittData.cs" />
     <Compile Include="KategoriData.cs" />
-    <Compile Include="NyPodcast.cs" />
     <Compile Include="PodcastData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="rss.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Databas.xml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

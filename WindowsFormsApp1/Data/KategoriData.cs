@@ -18,8 +18,8 @@ namespace Data
 
         public void bytKategori(string kategori, string podcast, string nyKategori)
         {
-            string gammalPath = Directory.GetCurrentDirectory() + @"\" + kategori;
-            string nyPath = Directory.GetCurrentDirectory() + @"\" + nyKategori;
+            string gammalPath = Directory.GetCurrentDirectory() + @"\" + kategori +@"\"+ podcast+ @".xml";
+            string nyPath = Directory.GetCurrentDirectory() + @"\" + nyKategori + @"\" + podcast + @".xml";
             File.Move(gammalPath, nyPath);
         }
     }
