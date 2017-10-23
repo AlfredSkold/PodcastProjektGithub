@@ -15,7 +15,8 @@ namespace WindowsFormsApp1
 {
     public partial class MainWIndow : Form
     {
-        
+       
+
         public MainWIndow()
         {
             InitializeComponent();
@@ -115,7 +116,7 @@ namespace WindowsFormsApp1
             cb.Items.Add("Var 30e sekund");
         }
 
-
+  
 
         private void cbAndraPodKategori_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -134,15 +135,26 @@ namespace WindowsFormsApp1
             var nyttIntervall = cbAndraPodIntervall.Text;
             var nyKategori = cbAndraPodAndraKategori.Text;
 
-            Podcast podelm = new Podcast();
-            podelm.andraPodcast(valdKategori, valdPodcast, nyUrl, nyttNamn, nyttIntervall, nyKategori);
+            if(Validation.comboBoxInteTomt(cbAndraPodKategori, "Podkategori") && Validation.comboBoxInteTomt(cbAndraPod, "Podcast") && Validation.kollaUrl(nyUrl) && Validation.textFieldInteTomt(tbAndraPodNamn, "Podnamn") && Validation.comboBoxInteTomt(cbAndraPodAndraKategori, "Kategori"))
+            {
+                if (cbAndraPodIntervall.SelectedItem == null)
+                {
+                    MessageBox.Show("Vänligen ange en uppdateringsintervall för podcasten");
+                    return;
+                }
 
-            Kategori kategori = new Kategori();
-            kategori.bytKategori(valdKategori, valdPodcast, nyKategori);
+                else
+                {
 
-            podelm.rensaFaltAndraPod(cbAndraPod, tbAndraPodUrl, tbAndraPodNamn, cbAndraPodIntervall, cbAndraPodAndraKategori);
-            fyllComboBoxKategorier();
-        }
+                    Podcast podelm = new Podcast();
+                    podelm.andraPodcast(valdKategori, valdPodcast, nyUrl, nyttNamn, nyttIntervall, nyKategori);
+
+                    Kategori kategori = new Kategori();
+                    kategori.bytKategori(valdKategori, valdPodcast, nyKategori);
+
+                    podelm.rensaFaltAndraPod(cbAndraPod, tbAndraPodUrl, tbAndraPodNamn, cbAndraPodIntervall, cbAndraPodAndraKategori);
+                    fyllComboBoxKategorier();
+                } } }
 
 
 
@@ -183,38 +195,69 @@ namespace WindowsFormsApp1
 
         private void btnSkapaNyKat_Click(object sender, EventArgs e)
         {
-            var nyttKategoriNamn = tbSkapaNyKat.Text;
-            Kategori kategori = new Kategori();
+            if (Validation.textFieldInteTomt(tbSkapaNyKat, "Kategorinamn"))
+            {
+                var nyttKategoriNamn = tbSkapaNyKat.Text;
+                Kategori kategori = new Kategori();
 
-            kategori.skapaNyKategori(nyttKategoriNamn, tbSkapaNyKat);
-            fyllComboBoxKategorier();
+                kategori.skapaNyKategori(nyttKategoriNamn, tbSkapaNyKat);
+                fyllComboBoxKategorier();
+            }
+        
             
         }
 
         private void btnAndraKat_Click(object sender, EventArgs e)
         {
-            var nyttKategoriNamn = tbAndraKat.Text;
-            var gammaltKategoriNamn = cbAndraKat.Text;
-            Kategori kategori = new Kategori();
-            kategori.andraKategoriNamn(gammaltKategoriNamn, nyttKategoriNamn);
+            if (cbAndraKat.SelectedItem == null)
+            {
+                MessageBox.Show("Vänligen ange vilken kategori du vill ändra");
+                return;
+            }
+            else
+            {
+                var nyttKategoriNamn = tbAndraKat.Text;
+                var gammaltKategoriNamn = cbAndraKat.Text;
+                Kategori kategori = new Kategori();
+                kategori.andraKategoriNamn(gammaltKategoriNamn, nyttKategoriNamn);
+            }
         }
 
         private void btnTaBortPod_Click(object sender, EventArgs e)
         {
-            var valdKategori = cbAndraPodKategori.Text;
-            var valdPod = cbAndraPod.Text;
-            Podcast podcast = new Podcast();
-            podcast.taBortPodcast(valdKategori, valdPod, tbAndraPodNamn, tbAndraPodUrl, cbAndraPodIntervall, cbAndraPod);
-            
-            fyllComboBoxKategorier();
+            if (Validation.comboBoxInteTomt(cbAndraPodKategori, "Podkategori") && Validation.comboBoxInteTomt(cbAndraPod, "Podcast") && Validation.kollaUrl(tbAndraPodUrl.Text) && Validation.textFieldInteTomt(tbAndraPodNamn, "Podnamn") && Validation.comboBoxInteTomt(cbAndraPodAndraKategori, "Kategori"))
+            {
+                if (cbAndraPodIntervall.SelectedItem == null)
+                {
+                    MessageBox.Show("Vänligen ange en uppdateringsintervall för podcasten");
+                    return;
+                }
+
+                else
+                {
+                    var valdKategori = cbAndraPodKategori.Text;
+                    var valdPod = cbAndraPod.Text;
+                    Podcast podcast = new Podcast();
+                    podcast.taBortPodcast(valdKategori, valdPod, tbAndraPodNamn, tbAndraPodUrl, cbAndraPodIntervall, cbAndraPod);
+
+                    fyllComboBoxKategorier();
+                }
+            }
         }
 
         private void btnTaBortKat_Click(object sender, EventArgs e)
         {
-            var valdKategori = cbAndraKat.Text;
-            Kategori kategori = new Kategori();
-            kategori.taBortKategori(valdKategori, cbAndraKat);
+            if (cbAndraKat.SelectedItem == null)
+            {
+                MessageBox.Show("Vänligen ange vilken kategori du vill ta bort");
+                return;
+            }
+            else
+            {
+                var valdKategori = cbAndraKat.Text;
+                Kategori kategori = new Kategori();
+                kategori.taBortKategori(valdKategori, cbAndraKat);
+            }
         }
-        
     }
 }
