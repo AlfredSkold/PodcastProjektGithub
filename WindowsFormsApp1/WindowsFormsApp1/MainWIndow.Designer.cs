@@ -129,7 +129,7 @@
             // lblAvsnitt
             // 
             this.lblAvsnitt.AutoSize = true;
-            this.lblAvsnitt.Location = new System.Drawing.Point(132, 83);
+            this.lblAvsnitt.Location = new System.Drawing.Point(41, 83);
             this.lblAvsnitt.Name = "lblAvsnitt";
             this.lblAvsnitt.Size = new System.Drawing.Size(0, 13);
             this.lblAvsnitt.TabIndex = 81;

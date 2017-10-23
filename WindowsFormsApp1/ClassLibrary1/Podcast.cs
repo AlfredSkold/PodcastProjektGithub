@@ -30,7 +30,30 @@ namespace Logic
             MessageBox.Show("Podcasten " + namn + " har blivit tillagd i kategorin " + kategoriNamn + ".");
         }
         
-        private void laggTillNyPodcast(bool nyKategori, String URL, String namn, string intervall, String kategori)
+        public bool harIntervallPaserat(string kategori, string podcast)
+        {
+            
+            DateTime senastSyncad;
+            DateTime.TryParse(hamtaSenastSync(kategori, podcast), out senastSyncad);
+            int intervall;
+            int.TryParse(hamtaPodcastIntervall(kategori, podcast), out intervall);
+            if (senastSyncad.AddMilliseconds(intervall).CompareTo(DateTime.Now) < 0)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
+        }
+
+        private string hamtaSenastSync(string kategori, string podcast)
+        {
+            PodcastData podcastData = new PodcastData();
+            string senastSync = podcastData.hamtaPodcastInfo("lastSync", kategori, podcast);
+            return senastSync;
+        }
+
+        public void laggTillNyPodcast(bool nyKategori, String URL, String namn, string intervall, String kategori)
         {
 
             if (nyKategori)
@@ -101,14 +124,19 @@ namespace Logic
             xmlOut.Close();
         }
 
-
-
-        public void laggTillNyPodcast(String URL, String namn, string intervall, String kategori)
+        public void bytUtXmlFil(string kategori, string podcast, string url, string intervall)
         {
-            Avsnitt avsnittelm = new Avsnitt();
-            List<string> speladeAvsnitt = avsnittelm.hamtaSpeladeAvsnitt(namn, kategori);
-            string path = Directory.GetCurrentDirectory() + @"/" + kategori + @"\" + namn + @".xml";
-            File.Delete(path);
+            Avsnitt avsnitt = new Avsnitt();
+            
+            List<string> speladeAvsnitt = avsnitt.hamtaSpeladeAvsnitt(podcast, kategori);
+            var path = Directory.GetCurrentDirectory() + @"\" + kategori + @"\" + podcast + ".xml";
+            laggTillNyPodcast(url, podcast, intervall, kategori, speladeAvsnitt);
+        }
+
+        public void laggTillNyPodcast(String URL, String namn, string intervall, String kategori, List<string> speladeAvsnitt)
+        {
+            string path = Directory.GetCurrentDirectory() + @"/" + kategori + @"\" + namn + @"ny.xml";
+            
             Console.WriteLine(path);
             rss rssVar = new rss();
             XmlDocument doc = rssVar.hamtaXML(URL);
@@ -159,26 +187,27 @@ namespace Logic
                     xmlOut.WriteElementString("description", description.InnerText);
                 }
 
-                for (int j = 0; j < speladeAvsnitt.Count; j++)
-                {
-                    
-                        xmlOut.WriteElementString("title", title.InnerText);
-                        xmlOut.WriteElementString("enclosure", enclosure.InnerText);
-                    if (speladeAvsnitt[j] == "Listened")
+                xmlOut.WriteElementString("title", title.InnerText);
+                xmlOut.WriteElementString("enclosure", enclosure.InnerText);
+                Avsnitt avsnitt = new Avsnitt();
+                
+                    var titelNamn = title.InnerText;
+                    if (speladeAvsnitt.Any(str => str.Contains(titelNamn)))
                     {
                         xmlOut.WriteElementString("status", "Listened");
                     } else
                     {
                         xmlOut.WriteElementString("status", "Unlistened");
                     }
-                }
-                    
+
+                
 
                 xmlOut.WriteEndElement();
                 i++;
             }
             xmlOut.WriteEndDocument();
             xmlOut.Close();
+
         }
 
         public void fyllComboboxMedPodcasts(string kategori, ComboBox combobox)

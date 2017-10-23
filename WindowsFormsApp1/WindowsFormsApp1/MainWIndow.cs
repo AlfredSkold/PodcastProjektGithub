@@ -74,17 +74,30 @@ namespace WindowsFormsApp1
 
 
 
-        private void cbValjEnPodcast_SelectedIndexChanged(object sender, EventArgs e)
+        private async void cbValjEnPodcast_SelectedIndexChanged(object sender, EventArgs e)
         {
             var kategori = cbValjEnKategori.Text;
             var podcast = cbValjEnPodcast.Text;
             Avsnitt avsnitt = new Avsnitt();
             Podcast enpodcast = new Podcast();
-            var url = enpodcast.hamtaPodcastUrl(kategori, podcast);
-            
-            avsnitt.fyllClbMedAvsnitt(kategori, podcast, lbAvsnitt, lblAvsnitt);
-            
-            
+
+            if(enpodcast.harIntervallPaserat(kategori, podcast))
+            {
+                Task<bool> result;
+                result = avsnitt.kollaOmNyttAvsnittFinns(kategori, podcast);
+                lblAvsnitt.Text = "Kollar om det finns nya avsnitt för denna Podcast...";
+                if (await result)
+                {
+                    avsnitt.fyllClbMedAvsnittNytt(kategori, podcast, lbAvsnitt, lblAvsnitt);
+                }
+                else
+                {
+                    avsnitt.fyllClbMedAvsnitt(kategori, podcast, lbAvsnitt, lblAvsnitt);
+                }
+            } else
+            {
+                avsnitt.fyllClbMedAvsnitt(kategori, podcast, lbAvsnitt, lblAvsnitt);
+            }
         }
 
 

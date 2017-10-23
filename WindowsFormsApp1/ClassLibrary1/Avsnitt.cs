@@ -14,6 +14,7 @@ namespace Logic
 {
     public class Avsnitt
     {
+        
 
         public async void fyllClbMedAvsnitt(string kategori, string podcast, ListBox clb, Label lbl)
         {
@@ -38,7 +39,39 @@ namespace Logic
             lbl.Text = "Avsnitt för " + podcast+ ":";
         }
 
-        
+        public async void fyllClbMedAvsnittNytt(string kategori, string podcast, ListBox clb, Label lbl)
+        {
+            
+            clb.Items.Clear();
+            Podcast podcastelm = new Podcast();
+            Task<List<string>> result;
+            var url = podcastelm.hamtaPodcastUrl(kategori, podcast);
+            var intervall = podcastelm.hamtaPodcastIntervall(kategori, podcast);
+
+            result = fyllListan(kategori, podcast);
+            
+            var nyttNamn = Directory.GetCurrentDirectory() +@"\"+ kategori+@"\" + podcast + ".xml";
+            var gammaltNamn = Directory.GetCurrentDirectory() + @"\" + kategori + @"\" + podcast + "ny.xml";
+
+            var path = Directory.GetCurrentDirectory() + @"\xmlFiler\" + podcast + ".xml";
+            lbl.Text = "Finns ett nytt avsnitt för denna podcast, hämtar avsnitt...";
+            podcastelm.bytUtXmlFil(kategori, podcast, url, intervall);
+            
+            List<string> allaAvsnitt = new List<string>();
+            await result;
+            File.Delete(path);
+            File.Delete(nyttNamn);
+            File.Move(gammaltNamn, nyttNamn);
+            allaAvsnitt = result.Result;
+
+            foreach (string item in allaAvsnitt)
+            {
+                clb.Items.Add(item);
+            }
+
+            lbl.Text = "Avsnitt för " + podcast + ":";
+        }
+
 
         private async Task<List<string>> fyllListan(string kategori, string podcast)
         {
@@ -56,185 +89,37 @@ namespace Logic
                 return allaAvsnitt;
             });
         }
+        
+        public async Task<bool> kollaOmNyttAvsnittFinns(string kategori, string podcast)
+        {
+            return await Task.Run(() =>
+            {
+                bool finns = false;
+                Podcast podcastelm = new Podcast();
+                List<string> allaGamlaAvsnitt = hamtaAvsnitt(podcast, kategori);
+                laddaNerNyaAvsnitt(kategori, podcast);
+                List<string> allaNyaAvsnitt = hamtaAvsnitt(podcast, "xmlFiler");
+                var path = Directory.GetCurrentDirectory() + @"\xmlFiler\" + podcast + ".xml";
+                var pathGammal = Directory.GetCurrentDirectory() + @"\" + kategori + @"\" + podcast + ".xml";
 
-        //private async Task<List<string>> hamtaNyttAvsnitt(string kategori, string podcast)
-        //{
-        //    PodcastData podcastData = new PodcastData();
-        //    AvsnittData avsnittData = new AvsnittData();
-        //    string path = Directory.GetCurrentDirectory() + @"\xmlfiler\" + podcast + ".xml";
-        //    string gammalPath = Directory.GetCurrentDirectory() + @"\" + kategori + @"\" + podcast + ".xml";
+                if(allaGamlaAvsnitt.Count == allaNyaAvsnitt.Count)
+                {
+                    File.Delete(path);
+                } else
+                {
+                    finns=  true;
+                }
+                return finns;
+            });
+        }
 
-
-
-        //    return await Task.Run(() =>
-        //    {
-        //        List<string> allaAvsnitt = new List<string>();
-        //        int i = 0;
-        //        XmlDocument xdocNy = new XmlDocument();
-        //        FileStream rfileNy = new FileStream(path, FileMode.Open);
-        //        xdocNy.Load(rfileNy);
-
-        //        XmlNodeList listNyaAvsnitt = xdocNy.GetElementsByTagName("item");
-        //        XmlNode nyttAvsnitt = listNyaAvsnitt[0];
-        //        XmlNodeList skfsdklfsdl = xdocNy.GetElementsByTagName("Channel");
-
-        //        XmlDocument xdocGammal = new XmlDocument();
-        //        FileStream rfileGammal = new FileStream(gammalPath, FileMode.Open);
-        //        xdocGammal.Load(rfileGammal);
-
-        //        var intervall = podcastData.hamtaPodcastInfo("interval", kategori, podcast);
-        //        var podUrl = podcastData.hamtaPodcastInfo("url", kategori, podcast);
-
-
-        //        XmlNodeList listGamlaAvsnitt = xdocGammal.GetElementsByTagName("item");
-
-        //        nyttAvsnitt.PrependChild(skfsdklfsdl[0]);
-
-        //        Console.WriteLine(skfsdklfsdl[0].InnerText + " " + nyttAvsnitt.InnerText);
-
-
-
-
-                //XmlDocument xdoc = new XmlDocument();
-                //FileStream rfile = new FileStream(gammalPath, FileMode.Open);
-                //xdoc.Load(rfile);
-
-                //XmlNodeList list = xdoc.GetElementsByTagName("item");
-                //nyttAvsnitt.InsertBefore(nyttAvsnitt, list[i]);
-                //var titelList = xdoc.GetElementsByTagName("title");
-                //var nyttAvsnittTitle = titelList[i].InnerText;
-
-
-
-                //rss rssVar = new rss();
-                //XmlDocument doc = rssVar.hamtaXML(path);
-                //XmlWriterSettings settings = new XmlWriterSettings();
-                //settings.Indent = true;
-                //settings.IndentChars = ("    ");
-                //XmlWriter xmlOut = XmlWriter.Create(gammalPath, settings);
-
-
-                //xmlOut.WriteStartDocument();
-                //xmlOut.WriteStartElement("channel");
-                //xmlOut.WriteElementString("interval", intervall);
-                //xmlOut.WriteElementString("url", podUrl);
-                //xmlOut.WriteElementString("lastSync", DateTime.Now.ToString());
-                //int k = 0;
-                //foreach (XmlNode item
-                //   in list)
-                //{
-
-
-                //    var title = item.SelectSingleNode("title");
-
-                //    var description = item.SelectSingleNode("description");
-                //    var enclosure = item.SelectSingleNode("enclosure/@url");
-                //    var dennaTitle = title.InnerText;
-                //    var arLyssnad = avsnittData.hamtaAvsnittsInfo(kategori, podcast, dennaTitle, "status");
-
-                //    xmlOut.WriteStartElement("item");
-
-                //    xmlOut.WriteAttributeString("ID", "pod" + k);
-
-                //    if (description.InnerText.Equals(""))
-                //    {
-                //        xmlOut.WriteElementString("description", "Unfortunately, no description is available.");
-                //    }
-                //    else
-                //    {
-                //        xmlOut.WriteElementString("description", description.InnerText);
-                //    }
-                //if (arLyssnad == "Unlistened")
-                //{
-                //    xmlOut.WriteElementString("title", title.InnerText);
-                //} else
-                //{
-                //    xmlOut.WriteElementString("title", title.InnerText + " (lyssnad)");
-                //}
-
-                //    xmlOut.WriteElementString("enclosure", enclosure.InnerText);
-
-                //if (arLyssnad == "Unlistened")
-                //{
-                //    xmlOut.WriteElementString("status", "Unlistened");
-                //} else
-                //{
-                //    xmlOut.WriteElementString("status", "Listened");
-                //}
-                //    xmlOut.WriteEndElement();
-                //    k++;
-                //}
-                //xmlOut.WriteEndDocument();
-                //xmlOut.Close();
-
-
-                //allaAvsnitt.Insert(0, nyttAvsnittTitle);
-
-                //File.Delete(gammalPath);
-                //File.Move(path, gammalPath);
-                //allaAvsnitt.Insert(0, nyttAvsnittTitle);
-
-
-
-
-
-        //        return allaAvsnitt;
-        //    });
-        //}
-
-
-
-        //public async void nyttavsnittfyllclb(string kategori, string podcast, ListBox lb, Label lbl)
-        //{
-        //    var tid = hamtaIntervallFörPod(kategori, podcast);
-
-
-        //    Task<List<string>> result = hamtaNyttAvsnitt(kategori, podcast);
-
-        //        lb.Items.Clear();
-        //        lbl.Text = "Nytt avsnitt har släppts, hämtar avsnitt...";
-
-
-        //        List<string> allaavsnitt = new List<string>();
-        //        await result;
-        //        allaavsnitt = result.Result;
-
-        //        foreach (string item in allaavsnitt)
-        //        {
-        //            lb.Items.Add(item);
-        //        }
-
-        //        lbl.Text = "avsnitt för " + podcast + ":";
-
-
-
-        //}
-
-        //public bool nyttAvsnittFinns(string kategori, string podcast, string url)
-        //{
-        //    //AvsnittData avsnittData = new AvsnittData();
-        //    //string path = Directory.GetCurrentDirectory() + @"\xmlfiler\" + podcast + ".xml";
-
-
-        //    //bool nyttAvsnitt = false;
-        //    //using (WebClient wc = new WebClient())
-        //    //{
-        //    //    wc.DownloadFileAsync(new System.Uri(url), path);
-        //    //}
-
-        //    //int antalNya = avsnittData.nyaListanCount(podcast);
-        //    //List<string> allaAvsnitt = hamtaAvsnitt(podcast, kategori);
-        //    //if (allaAvsnitt.Count < 290)
-        //    //{
-        //    //    nyttAvsnitt = true;
-        //    //} 
-        //    //{
-        //    //    File.Delete(path);
-        //    //}
-        //    return true;
-        //}
-
-
+        private void laddaNerNyaAvsnitt(string kategori, string podcast)
+        {
+            Podcast podcastelm = new Podcast();
+            var url = podcastelm.hamtaPodcastUrl(kategori, podcast);
+            var intervall = podcastelm.hamtaPodcastIntervall(kategori, podcast);
+            podcastelm.laggTillNyPodcast(false, url, podcast, intervall, "xmlFiler");
+        }
 
         public string hamtaIntervallFörPod(string kategori, string podcast)
         {
@@ -244,7 +129,7 @@ namespace Logic
             return intervallTid;
         }
 
-        private bool arAvsnittSpelat(string kategori, string podcast, string avsnitt)
+        public bool arAvsnittSpelat(string kategori, string podcast, string avsnitt)
         {
             AvsnittData podcastDataElement = new AvsnittData();
             bool spelad = false;
@@ -284,7 +169,6 @@ namespace Logic
 
             xm.Load(path);
             XmlNodeList Xn = xm.SelectNodes(list);
-            var hej = Xn.Count;
             foreach (XmlNode xNode in Xn)
             {
                 allaAvsnitt.Add(xNode.InnerText);
