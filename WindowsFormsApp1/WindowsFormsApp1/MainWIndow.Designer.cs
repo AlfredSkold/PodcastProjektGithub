@@ -64,7 +64,6 @@
             this.tbURL = new System.Windows.Forms.TextBox();
             this.btnPlay = new System.Windows.Forms.Button();
             this.rtbDesc = new System.Windows.Forms.RichTextBox();
-            this.btnMerInfo = new System.Windows.Forms.Button();
             this.cbAndraPod = new System.Windows.Forms.ComboBox();
             this.lblAndraPodValjKategori = new System.Windows.Forms.Label();
             this.lblAndraPod = new System.Windows.Forms.Label();
@@ -401,21 +400,13 @@
             // 
             // rtbDesc
             // 
+            this.rtbDesc.Enabled = false;
             this.rtbDesc.Location = new System.Drawing.Point(387, 265);
             this.rtbDesc.Name = "rtbDesc";
+            this.rtbDesc.ReadOnly = true;
             this.rtbDesc.Size = new System.Drawing.Size(257, 180);
             this.rtbDesc.TabIndex = 89;
             this.rtbDesc.Text = "";
-            // 
-            // btnMerInfo
-            // 
-            this.btnMerInfo.Location = new System.Drawing.Point(387, 235);
-            this.btnMerInfo.Name = "btnMerInfo";
-            this.btnMerInfo.Size = new System.Drawing.Size(114, 23);
-            this.btnMerInfo.TabIndex = 90;
-            this.btnMerInfo.Text = "Mer info";
-            this.btnMerInfo.UseVisualStyleBackColor = true;
-            this.btnMerInfo.Click += new System.EventHandler(this.btnMerInfo_Click);
             // 
             // cbAndraPod
             // 
@@ -495,6 +486,7 @@
             this.lbAvsnitt.Name = "lbAvsnitt";
             this.lbAvsnitt.Size = new System.Drawing.Size(321, 368);
             this.lbAvsnitt.TabIndex = 100;
+            this.lbAvsnitt.SelectedIndexChanged += new System.EventHandler(this.lbAvsnitt_SelectedIndexChanged);
             // 
             // MainWIndow
             // 
@@ -510,7 +502,6 @@
             this.Controls.Add(this.lblAndraPod);
             this.Controls.Add(this.lblAndraPodValjKategori);
             this.Controls.Add(this.cbAndraPod);
-            this.Controls.Add(this.btnMerInfo);
             this.Controls.Add(this.rtbDesc);
             this.Controls.Add(this.btnPlay);
             this.Controls.Add(this.label8);
@@ -593,7 +584,6 @@
         private System.Windows.Forms.TextBox tbURL;
         private System.Windows.Forms.Button btnPlay;
         private System.Windows.Forms.RichTextBox rtbDesc;
-        private System.Windows.Forms.Button btnMerInfo;
         private System.Windows.Forms.ComboBox cbAndraPod;
         private System.Windows.Forms.Label lblAndraPodValjKategori;
         private System.Windows.Forms.Label lblAndraPod;

@@ -27,7 +27,7 @@ namespace Data
             }
 
             //Skapa en objektrepresentation.
-            var dom = new System.Xml.XmlDocument();
+            var dom = skapaXml();
             dom.LoadXml(xml);
             return dom;
         }

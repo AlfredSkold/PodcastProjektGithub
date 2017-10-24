@@ -135,7 +135,8 @@ namespace WindowsFormsApp1
             var nyttIntervall = cbAndraPodIntervall.Text;
             var nyKategori = cbAndraPodAndraKategori.Text;
 
-            if(Validation.comboBoxInteTomt(cbAndraPodKategori, "Podkategori") && Validation.comboBoxInteTomt(cbAndraPod, "Podcast") && Validation.kollaUrl(nyUrl) && Validation.textFieldInteTomt(tbAndraPodNamn, "Podnamn") && Validation.comboBoxInteTomt(cbAndraPodAndraKategori, "Kategori"))
+            if((Validation.comboBoxInteTomt(cbAndraPodKategori, "Podkategori") && Validation.comboBoxInteTomt(cbAndraPod, "Podcast")
+                && Validation.kollaUrl(nyUrl) && Validation.textFieldInteTomt(tbAndraPodNamn, "Podnamn") && Validation.comboBoxInteTomt(cbAndraPodAndraKategori, "Kategori"))
             {
                 if (cbAndraPodIntervall.SelectedItem == null)
                 {
@@ -168,30 +169,23 @@ namespace WindowsFormsApp1
             
         }
 
-
-
-        private void btnMerInfo_Click(object sender, EventArgs e)
-        {
-            var valtAvsnittLb = lbAvsnitt.Text;
-            var valtAvsnitt = valtAvsnittLb.Replace(" (Lyssnad på)", "");
-            var valdPodcast = cbValjEnPodcast.Text;
-            var valdKategori = cbValjEnKategori.Text;
-
-            Podcast podcastElement = new Podcast();
-            podcastElement.skrivBeskrivning(valdKategori, valdPodcast, valtAvsnitt, rtbDesc);
-        }
+        
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            var valtAvsnitt = lbAvsnitt.Text;
-            var valdKategori = cbValjEnKategori.Text;
-            var valdPod = cbValjEnPodcast.Text;
-            var valtAvsnittIndex = lbAvsnitt.SelectedIndex;
+            if (Validation.comboBoxInteTomt(cbValjEnKategori, "Kategori") && Validation.comboBoxInteTomt(cbValjEnPodcast, "podcast")
+               && Validation.lbInteTomt(lbAvsnitt.Text, "Ett avsnitt"))
+            {
+                var valtAvsnitt = lbAvsnitt.Text;
+                var valdKategori = cbValjEnKategori.Text;
+                var valdPod = cbValjEnPodcast.Text;
+                var valtAvsnittIndex = lbAvsnitt.SelectedIndex;
 
-            
-            Avsnitt avsnitt = new Avsnitt();
-            avsnitt.spelaAvsnitt(valdKategori, valdPod, valtAvsnitt, lbAvsnitt, valtAvsnittIndex);
-            avsnitt.fyllClbMedAvsnitt(valdKategori, valdPod, lbAvsnitt, lblAvsnitt);
+
+                Avsnitt avsnitt = new Avsnitt();
+                avsnitt.spelaAvsnitt(valdKategori, valdPod, valtAvsnitt, lbAvsnitt, valtAvsnittIndex);
+                avsnitt.fyllClbMedAvsnitt(valdKategori, valdPod, lbAvsnitt, lblAvsnitt);
+            }
         }
 
         private void btnSkapaNyKat_Click(object sender, EventArgs e)
@@ -239,13 +233,24 @@ namespace WindowsFormsApp1
 
         private void btnTaBortKat_Click(object sender, EventArgs e)
         {
-            if (Validation.comboBoxInteTomt(cbAndraPodAndraKategori, "Vänligen ange vilken kategori du vill ta bort"))
+            if (Validation.comboBoxInteTomt(cbAndraKat, "Kategori"))
             {
                 var valdKategori = cbAndraKat.Text;
                 Kategori kategori = new Kategori();
                 kategori.taBortKategori(valdKategori, cbAndraKat);
                 fyllComboBoxKategorier();
             }
+        }
+
+        private void lbAvsnitt_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var valtAvsnittLb = lbAvsnitt.Text;
+            var valtAvsnitt = valtAvsnittLb.Replace(" (Lyssnad på)", "");
+            var valdPodcast = cbValjEnPodcast.Text;
+            var valdKategori = cbValjEnKategori.Text;
+
+            Podcast podcastElement = new Podcast();
+            podcastElement.skrivBeskrivning(valdKategori, valdPodcast, valtAvsnitt, rtbDesc);
         }
     }
 }

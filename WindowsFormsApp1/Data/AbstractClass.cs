@@ -11,5 +11,13 @@ namespace Data
     public abstract class AbstractClass
     {
         public abstract XmlDocument hamtaXML(string url);
+
+        public virtual XmlDocument skapaXml()
+        {
+            XmlDocument nyttXml = new System.Xml.XmlDocument();
+            return nyttXml;
+        }
     }
+
+    
 }
