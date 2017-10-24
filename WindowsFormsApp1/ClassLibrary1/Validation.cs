@@ -11,6 +11,7 @@ namespace Logic
     {
         public static bool textFieldInteTomt(TextBox field, string label)
         {
+
             if (field.Text == "")
             {
                 MessageBox.Show(label + " måste fyllas i. Vänligen ange ett värde.");
@@ -151,9 +152,19 @@ namespace Logic
             }
         }
 
-        //kolla att kraven för att lägga till är uppfyllda (namn, kategori och intervall)
-        //kolla att nytt namn på kategori inte är taget
-
+        public static bool lbInteTomt(ListBox lb, string med)
+        {
+            if (lb.Text == "")
+            {
+                MessageBox.Show(med + " är inte valt, vänligen ange ett värde");
+                lb.Focus();
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
 
     }
 

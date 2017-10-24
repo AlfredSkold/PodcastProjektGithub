@@ -26,7 +26,6 @@ namespace Data
                 XmlElement xElm = (XmlElement)xdoc.GetElementsByTagName(tagName)[i];
                 podcastItem = xElm.InnerText;
                 Console.WriteLine(podcastItem);
-                break;
             }
 
             fileS.Close();
